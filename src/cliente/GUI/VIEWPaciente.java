@@ -131,7 +131,7 @@ public class VIEWPaciente extends javax.swing.JFrame {
         jLabel11.setBounds(450, 230, 120, 18);
 
         jLabel12.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jLabel12.setText("Usuário:");
+        jLabel12.setText("CPF:");
         getContentPane().add(jLabel12);
         jLabel12.setBounds(40, 60, 80, 21);
         getContentPane().add(jTextField7);

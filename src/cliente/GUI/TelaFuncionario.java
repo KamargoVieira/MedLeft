@@ -129,19 +129,19 @@ public class TelaFuncionario extends javax.swing.JFrame {
 
         jMenuItem8.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cliente/GUI/imagens/page_white_go.png"))); // NOI18N
-        jMenuItem8.setText("Gerar Resultado do Exame");
+        jMenuItem8.setText("Postar Exame");
         jMenu3.add(jMenuItem8);
 
         jMenuItem9.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cliente/GUI/imagens/page_white_edit.png"))); // NOI18N
-        jMenuItem9.setText("Postar Resultado do Exame");
+        jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cliente/GUI/imagens/printer.png"))); // NOI18N
+        jMenuItem9.setText("Imprimir Exame");
         jMenu3.add(jMenuItem9);
 
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
 
-        setSize(new java.awt.Dimension(1240, 790));
+        setSize(new java.awt.Dimension(1225, 790));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
