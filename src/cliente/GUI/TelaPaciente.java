@@ -37,7 +37,11 @@ public class TelaPaciente extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
@@ -63,10 +67,39 @@ public class TelaPaciente extends javax.swing.JFrame {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 1230, 720);
 
-        jMenu1.setText("File");
+        jMenuBar1.setMinimumSize(new java.awt.Dimension(212, 45));
+        jMenuBar1.setPreferredSize(new java.awt.Dimension(212, 45));
+
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cliente/GUI/imagens/page.png"))); // NOI18N
+        jMenu1.setText("Consultas");
+        jMenu1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+
+        jMenuItem1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cliente/GUI/imagens/page_add.png"))); // NOI18N
+        jMenuItem1.setText("Agendar Consulta");
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem4.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cliente/GUI/imagens/zoom.png"))); // NOI18N
+        jMenuItem4.setText("Ver Prontuário");
+        jMenu1.add(jMenuItem4);
+
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cliente/GUI/imagens/page_white.png"))); // NOI18N
+        jMenu2.setText("Exames");
+        jMenu2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+
+        jMenuItem2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cliente/GUI/imagens/page_white_add.png"))); // NOI18N
+        jMenuItem2.setText("Agendar Exame");
+        jMenu2.add(jMenuItem2);
+
+        jMenuItem3.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cliente/GUI/imagens/page_white_go.png"))); // NOI18N
+        jMenuItem3.setText("Ver Resultado de Exame");
+        jMenu2.add(jMenuItem3);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -87,5 +120,9 @@ public class TelaPaciente extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     // End of variables declaration//GEN-END:variables
 }

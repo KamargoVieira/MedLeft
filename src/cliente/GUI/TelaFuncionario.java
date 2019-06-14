@@ -46,6 +46,7 @@ public class TelaFuncionario extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
 
@@ -127,6 +128,11 @@ public class TelaFuncionario extends javax.swing.JFrame {
         jMenuItem7.setText("Agendar Exame");
         jMenu3.add(jMenuItem7);
 
+        jMenuItem10.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cliente/GUI/imagens/accept.png"))); // NOI18N
+        jMenuItem10.setText("Confirmar Exame");
+        jMenu3.add(jMenuItem10);
+
         jMenuItem8.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cliente/GUI/imagens/page_white_go.png"))); // NOI18N
         jMenuItem8.setText("Postar Exame");
@@ -160,6 +166,7 @@ public class TelaFuncionario extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
