@@ -1,6 +1,7 @@
 package cliente.GUI;
 
 import cliente.Conexao;
+import cliente.GUI.TelaLogin;
 
 public class TelaMedico extends javax.swing.JFrame {
 
@@ -34,6 +35,9 @@ public class TelaMedico extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
@@ -87,7 +91,7 @@ public class TelaMedico extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cliente/GUI/imagens/page.png"))); // NOI18N
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cliente/GUI/imagens/page_white.png"))); // NOI18N
         jMenu3.setText("Atestados");
         jMenu3.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
@@ -97,6 +101,22 @@ public class TelaMedico extends javax.swing.JFrame {
         jMenu3.add(jMenuItem4);
 
         jMenuBar1.add(jMenu3);
+
+        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cliente/GUI/imagens/page.png"))); // NOI18N
+        jMenu4.setText("Consultas");
+        jMenu4.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+
+        jMenuItem5.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cliente/GUI/imagens/page_edit.png"))); // NOI18N
+        jMenuItem5.setText("Agenda");
+        jMenu4.add(jMenuItem5);
+
+        jMenuItem6.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cliente/GUI/imagens/accept.png"))); // NOI18N
+        jMenuItem6.setText("Validar Consulta");
+        jMenu4.add(jMenuItem6);
+
+        jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
 
@@ -117,10 +137,13 @@ public class TelaMedico extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     // End of variables declaration//GEN-END:variables
 }
