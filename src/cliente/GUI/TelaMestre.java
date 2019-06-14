@@ -48,7 +48,6 @@ public class TelaMestre extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -140,11 +139,6 @@ public class TelaMestre extends javax.swing.JFrame {
         jMenuItem10.setText("Remover Exame");
         jMenu2.add(jMenuItem10);
 
-        jMenuItem11.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cliente/GUI/imagens/zoom.png"))); // NOI18N
-        jMenuItem11.setText("Buscar Exame");
-        jMenu2.add(jMenuItem11);
-
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -169,7 +163,6 @@ public class TelaMestre extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
