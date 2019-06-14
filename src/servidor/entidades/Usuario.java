@@ -9,6 +9,6 @@ package servidor.entidades;
  *
  * @author kamargo
  */
-public class Usuario {
- 
+public  abstract class Usuario {
+    
 }
