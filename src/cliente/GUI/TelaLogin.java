@@ -13,8 +13,7 @@ import cliente.Conexao;
  */
 public class TelaLogin extends javax.swing.JFrame {
 
-    Conexao conexao;
- 
+    Conexao conexao; 
     public TelaLogin(Conexao conexao) {
         this.conexao = conexao;
         initComponents();
