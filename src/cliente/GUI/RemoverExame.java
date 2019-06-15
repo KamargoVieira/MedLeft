@@ -1,6 +1,10 @@
 package cliente.GUI;
 
 import cliente.Conexao;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class RemoverExame extends javax.swing.JFrame {
 
@@ -15,7 +19,7 @@ public class RemoverExame extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel7 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        nomeexame = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -27,11 +31,16 @@ public class RemoverExame extends javax.swing.JFrame {
         getContentPane().add(jLabel7);
         jLabel7.setBounds(90, 70, 160, 21);
 
-        jTextField6.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        getContentPane().add(jTextField6);
-        jTextField6.setBounds(90, 100, 270, 50);
+        nomeexame.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        getContentPane().add(nomeexame);
+        nomeexame.setBounds(90, 100, 270, 50);
 
         jButton1.setText("Remover");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1);
         jButton1.setBounds(150, 170, 110, 50);
 
@@ -43,10 +52,32 @@ public class RemoverExame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(nomeexame.getText().isBlank()){
+            JOptionPane.showMessageDialog(null,"Preencha o campo indicado!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            try {
+                String str = "RemoverExame@"+nomeexame.getText();
+                conexao.enviar(str);
+                String op = conexao.receber();
+                switch(op){
+                    case "ok":
+                        JOptionPane.showMessageDialog(null,"Exame Removido com Sucesso!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
+                        break;
+                    case "naoencontrado":
+                        JOptionPane.showMessageDialog(null,"Exame não encontrado!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
+                        break;
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(RemoverExame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField nomeexame;
     // End of variables declaration//GEN-END:variables
 }

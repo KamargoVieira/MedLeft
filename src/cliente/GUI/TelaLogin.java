@@ -119,7 +119,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
            String senha = new String(password.getPassword());
-        if(user.getText().isEmpty() || senha.length() < 1 || typeUser.getSelectedItem().equals("Selecione:  Tipo de Usuario")){
+        if(user.getText().isBlank() || senha.length() < 1 || typeUser.getSelectedItem().equals("Selecione:  Tipo de Usuario")){
             JOptionPane.showMessageDialog(null,"Preencha todos os campos!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
         }else{
                try {

@@ -1,6 +1,10 @@
 package cliente.GUI;
 
 import cliente.Conexao;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class CadastrarFuncionario extends javax.swing.JFrame {
 
@@ -16,15 +20,13 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
 
         nome = new javax.swing.JTextField();
         name = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        identificacao = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        cpf = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        user = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        password = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -37,46 +39,35 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(nome);
-        nome.setBounds(160, 130, 440, 50);
+        nome.setBounds(160, 70, 440, 50);
 
         name.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         name.setText("Nome:");
         getContentPane().add(name);
-        name.setBounds(30, 150, 90, 21);
+        name.setBounds(30, 90, 90, 21);
 
-        jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jLabel2.setText("Identificação:");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(30, 90, 110, 18);
-
-        identificacao.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        getContentPane().add(identificacao);
-        identificacao.setBounds(160, 70, 260, 50);
-
-        jTextField6.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        getContentPane().add(jTextField6);
-        jTextField6.setBounds(160, 190, 270, 50);
+        cpf.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        getContentPane().add(cpf);
+        cpf.setBounds(160, 130, 270, 50);
 
         jLabel7.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel7.setText("CPF:");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(30, 200, 90, 21);
+        jLabel7.setBounds(30, 140, 90, 21);
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel4.setText("Usuário:");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(30, 260, 80, 21);
+        jLabel4.setBounds(30, 200, 80, 21);
 
-        jTextField1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(160, 250, 210, 50);
+        user.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        getContentPane().add(user);
+        user.setBounds(160, 190, 210, 50);
 
         jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel5.setText("Senha:");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(30, 310, 60, 21);
-        getContentPane().add(jTextField2);
-        jTextField2.setBounds(160, 310, 210, 50);
+        jLabel5.setBounds(30, 250, 60, 21);
 
         jButton2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jButton2.setText("Cadastrar");
@@ -87,6 +78,8 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
         });
         getContentPane().add(jButton2);
         jButton2.setBounds(260, 400, 130, 40);
+        getContentPane().add(password);
+        password.setBounds(160, 250, 210, 50);
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cliente/GUI/imagens/fundo.png"))); // NOI18N
@@ -102,21 +95,38 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_nomeActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.dispose();
+        if(nome.getText().isBlank() || cpf.getText().isBlank() || user.getText().isBlank() || password.getPassword().length <1){
+            JOptionPane.showMessageDialog(null,"Preencha todos os campos.", "Info" ,JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            try {
+                String str = "CadastrarFuncionario@"+nome.getText()+"@"+cpf.getText()+"@"+user.getText()+"@"+user.getText()+"@"+ new String(password.getPassword());
+                conexao.enviar(str);
+                String op = conexao.receber();
+                switch(op){
+                    case "ok":
+                        JOptionPane.showMessageDialog(null,"Funcionário cadastrado com sucesso!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
+                        break;
+                    case "jaexiste":
+                        JOptionPane.showMessageDialog(null,"Nome de usuário já existe. Tente outro.", "Info" ,JOptionPane.INFORMATION_MESSAGE);
+                        user.setText("");
+                        break;
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(CadastrarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField identificacao;
+    private javax.swing.JTextField cpf;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JLabel name;
     private javax.swing.JTextField nome;
+    private javax.swing.JPasswordField password;
+    private javax.swing.JTextField user;
     // End of variables declaration//GEN-END:variables
 }
