@@ -1,6 +1,10 @@
 package cliente.GUI;
 
 import cliente.Conexao;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class BuscarProntuario extends javax.swing.JFrame {
 
@@ -16,7 +20,7 @@ public class BuscarProntuario extends javax.swing.JFrame {
 
         jButton1 = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        cpfSearch = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -34,32 +38,32 @@ public class BuscarProntuario extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        queixaprincipal = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        historicofamiliar = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
+        obs = new javax.swing.JTextArea();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        altura = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        frequenciacaradiaca = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        peso = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        hemoglucoteste = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        temperatura = new javax.swing.JTextField();
         jLabel27 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea4 = new javax.swing.JTextArea();
+        obs2 = new javax.swing.JTextArea();
         jLabel28 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        pressaosistotica = new javax.swing.JTextField();
         jLabel29 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        pressaodiastolica = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -80,12 +84,17 @@ public class BuscarProntuario extends javax.swing.JFrame {
         jLabel12.setText("CPF:");
         getContentPane().add(jLabel12);
         jLabel12.setBounds(40, 80, 80, 21);
-        getContentPane().add(jTextField7);
-        jTextField7.setBounds(170, 60, 300, 50);
+        getContentPane().add(cpfSearch);
+        cpfSearch.setBounds(170, 60, 300, 50);
 
         jButton2.setText("Buscar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton2);
-        jButton2.setBounds(550, 60, 110, 50);
+        jButton2.setBounds(520, 60, 110, 50);
 
         jLabel13.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         getContentPane().add(jLabel13);
@@ -149,9 +158,9 @@ public class BuscarProntuario extends javax.swing.JFrame {
         getContentPane().add(jLabel4);
         jLabel4.setBounds(40, 200, 140, 21);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        queixaprincipal.setColumns(20);
+        queixaprincipal.setRows(5);
+        jScrollPane1.setViewportView(queixaprincipal);
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(210, 200, 280, 92);
@@ -161,9 +170,9 @@ public class BuscarProntuario extends javax.swing.JFrame {
         getContentPane().add(jLabel5);
         jLabel5.setBounds(40, 320, 160, 21);
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        historicofamiliar.setColumns(20);
+        historicofamiliar.setRows(5);
+        jScrollPane2.setViewportView(historicofamiliar);
 
         getContentPane().add(jScrollPane2);
         jScrollPane2.setBounds(210, 310, 280, 92);
@@ -173,9 +182,9 @@ public class BuscarProntuario extends javax.swing.JFrame {
         getContentPane().add(jLabel6);
         jLabel6.setBounds(40, 440, 110, 21);
 
-        jTextArea3.setColumns(20);
-        jTextArea3.setRows(5);
-        jScrollPane3.setViewportView(jTextArea3);
+        obs.setColumns(20);
+        obs.setRows(5);
+        jScrollPane3.setViewportView(obs);
 
         getContentPane().add(jScrollPane3);
         jScrollPane3.setBounds(210, 420, 280, 92);
@@ -194,50 +203,50 @@ public class BuscarProntuario extends javax.swing.JFrame {
         getContentPane().add(jLabel9);
         jLabel9.setBounds(50, 560, 110, 21);
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        altura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                alturaActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(160, 550, 60, 40);
+        getContentPane().add(altura);
+        altura.setBounds(160, 550, 60, 40);
 
         jLabel10.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel10.setText("Frequência Cardiaca (bpm) :");
         getContentPane().add(jLabel10);
         jLabel10.setBounds(50, 610, 230, 21);
-        getContentPane().add(jTextField2);
-        jTextField2.setBounds(300, 600, 60, 40);
+        getContentPane().add(frequenciacaradiaca);
+        frequenciacaradiaca.setBounds(300, 600, 60, 40);
 
         jLabel11.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel11.setText("Peso (kg):");
         getContentPane().add(jLabel11);
         jLabel11.setBounds(230, 560, 90, 18);
-        getContentPane().add(jTextField3);
-        jTextField3.setBounds(320, 550, 60, 40);
+        getContentPane().add(peso);
+        peso.setBounds(320, 550, 60, 40);
 
         jLabel25.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel25.setText("Hemoglucoteste (mg/dl):");
         getContentPane().add(jLabel25);
         jLabel25.setBounds(390, 560, 220, 21);
-        getContentPane().add(jTextField4);
-        jTextField4.setBounds(610, 550, 60, 40);
+        getContentPane().add(hemoglucoteste);
+        hemoglucoteste.setBounds(610, 550, 60, 40);
 
         jLabel26.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel26.setText("Temperatura (°C):");
         getContentPane().add(jLabel26);
         jLabel26.setBounds(680, 560, 150, 21);
-        getContentPane().add(jTextField5);
-        jTextField5.setBounds(840, 550, 60, 40);
+        getContentPane().add(temperatura);
+        temperatura.setBounds(840, 550, 60, 40);
 
         jLabel27.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel27.setText("Observações:");
         getContentPane().add(jLabel27);
         jLabel27.setBounds(50, 650, 120, 21);
 
-        jTextArea4.setColumns(20);
-        jTextArea4.setRows(5);
-        jScrollPane4.setViewportView(jTextArea4);
+        obs2.setColumns(20);
+        obs2.setRows(5);
+        jScrollPane4.setViewportView(obs2);
 
         getContentPane().add(jScrollPane4);
         jScrollPane4.setBounds(170, 650, 262, 92);
@@ -246,21 +255,21 @@ public class BuscarProntuario extends javax.swing.JFrame {
         jLabel28.setText("Pressão arterial sistótica (mmHg):");
         getContentPane().add(jLabel28);
         jLabel28.setBounds(380, 610, 290, 21);
-        getContentPane().add(jTextField6);
-        jTextField6.setBounds(670, 600, 60, 40);
+        getContentPane().add(pressaosistotica);
+        pressaosistotica.setBounds(670, 600, 60, 40);
 
         jLabel29.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel29.setText("Pressão arterial diastólica (mmHg):");
         getContentPane().add(jLabel29);
         jLabel29.setBounds(740, 610, 290, 21);
 
-        jTextField8.addActionListener(new java.awt.event.ActionListener() {
+        pressaodiastolica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField8ActionPerformed(evt);
+                pressaodiastolicaActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField8);
-        jTextField8.setBounds(1040, 600, 60, 40);
+        getContentPane().add(pressaodiastolica);
+        pressaodiastolica.setBounds(1040, 600, 60, 40);
 
         jButton3.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jButton3.setText("Atualizar");
@@ -281,23 +290,80 @@ public class BuscarProntuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.dispose();
-        new CadastrarPacienteDadosDeAcesso().setVisible(true);
+      
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void alturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alturaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_alturaActionPerformed
 
-    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
+    private void pressaodiastolicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pressaodiastolicaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField8ActionPerformed
+    }//GEN-LAST:event_pressaodiastolicaActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        if(queixaprincipal.getText().isBlank() || historicofamiliar.getText().isBlank() || obs.getText().isBlank() ||
+            altura.getText().isBlank() || peso.getText().isBlank() || hemoglucoteste.getText().isBlank() || temperatura.getText().isBlank() ||
+            frequenciacaradiaca.getText().isBlank() || pressaosistotica.getText().isBlank() || pressaodiastolica.getText().isBlank() || obs2.getText().isBlank()
+            ){
+            JOptionPane.showMessageDialog(null,"Preencha todos os campos.", "Info" ,JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            try {
+                String str = "AlterarProntuario@"+queixaprincipal.getText()+"@"+ historicofamiliar.getText()+"@"+obs.getText()+"@"+
+                        altura.getText()+"@"+peso.getText()+"@"+hemoglucoteste.getText()+"@"+temperatura.getText()+"@"+frequenciacaradiaca.getText()+"@"+
+                        pressaosistotica.getText()+"@"+pressaodiastolica.getText()+"@"+ obs2.getText();
+                conexao.enviar(str);
+                String op = conexao.receber();
+                switch(op){
+                    case "ok":
+                        JOptionPane.showMessageDialog(null,"Prontuário atualizado com sucesso!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
+                        break;
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(BuscarProntuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if(cpfSearch.getText().isBlank()){
+            JOptionPane.showMessageDialog(null,"Digite algo no campo de busca!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            try {
+                String str  = "BuscarProntuario@"+cpfSearch.getText();
+                conexao.enviar(str);
+                String op = conexao.receber();
+                switch(op){
+                     case "naoencontrado":
+                        JOptionPane.showMessageDialog(null,"Paciente não encontrado", "Info" ,JOptionPane.INFORMATION_MESSAGE);
+                        break;
+                    default:
+                        String[] dados = op.split("@");
+                        queixaprincipal.setText(dados[0]);
+                        historicofamiliar.setText(dados[1]);
+                        obs.setText(dados[2]);
+                        altura.setText(dados[3]);
+                        peso.setText(dados[4]);
+                        hemoglucoteste.setText(dados[5]);
+                        temperatura.setText(dados[6]);
+                        frequenciacaradiaca.setText(dados[7]);
+                        pressaosistotica.setText(dados[8]);
+                        pressaodiastolica.setText(dados[9]);
+                        obs2.setText(dados[10]);                        
+                        break;
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(BuscarProntuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField altura;
+    private javax.swing.JTextField cpfSearch;
+    private javax.swing.JTextField frequenciacaradiaca;
+    private javax.swing.JTextField hemoglucoteste;
+    private javax.swing.JTextArea historicofamiliar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -334,17 +400,12 @@ public class BuscarProntuario extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextArea jTextArea3;
-    private javax.swing.JTextArea jTextArea4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextArea obs;
+    private javax.swing.JTextArea obs2;
+    private javax.swing.JTextField peso;
+    private javax.swing.JTextField pressaodiastolica;
+    private javax.swing.JTextField pressaosistotica;
+    private javax.swing.JTextArea queixaprincipal;
+    private javax.swing.JTextField temperatura;
     // End of variables declaration//GEN-END:variables
 }

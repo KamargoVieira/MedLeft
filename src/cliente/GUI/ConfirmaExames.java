@@ -1,4 +1,3 @@
-
 package cliente.GUI;
 
 import cliente.Conexao;
