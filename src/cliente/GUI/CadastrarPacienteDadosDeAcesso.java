@@ -9,12 +9,12 @@ package cliente.GUI;
  *
  * @author denilsondsousa
  */
-public class CadastrarClienteDadosDeAcesso extends javax.swing.JFrame {
+public class CadastrarPacienteDadosDeAcesso extends javax.swing.JFrame {
 
     /**
      * Creates new form CadastrarClienteDadosDeAcesso
      */
-    public CadastrarClienteDadosDeAcesso() {
+    public CadastrarPacienteDadosDeAcesso() {
         initComponents();
     }
 
