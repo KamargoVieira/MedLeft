@@ -1,19 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cliente.GUI;
 
-/**
- *
- * @author denilsondsousa
- */
-public class GerarResultadoExame extends javax.swing.JFrame {
+import cliente.Conexao;
 
-    public GerarResultadoExame() {
+
+public class PostarResultadoExame extends javax.swing.JFrame {
+    
+    Conexao conexao;
+    public PostarResultadoExame(Conexao conexao) {
         initComponents();
         escolherArquivo.setVisible(false);
+        this.conexao = conexao;
     }
 
     @SuppressWarnings("unchecked")

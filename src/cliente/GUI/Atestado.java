@@ -1,21 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cliente.GUI;
 
-/**
- *
- * @author denilsondsousa
- */
+import cliente.Conexao;
+
+
 public class Atestado extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Atestado
-     */
-    public Atestado() {
+    Conexao conexao;
+    public Atestado(Conexao conexao) {
         initComponents();
+        this.conexao = conexao;
     }
 
     /**
