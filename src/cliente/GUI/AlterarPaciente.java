@@ -1,13 +1,43 @@
 package cliente.GUI;
 
 import cliente.Conexao;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class AlterarPaciente extends javax.swing.JFrame {
 
     Conexao conexao;
+    String nomeAux, enderecoAux,bairroAux,municipioAux,cepAux,estadoAux,telefoneAux, celularAux, userAux, senhaAux;   
+    
     public AlterarPaciente(Conexao conexao) {
         initComponents();
         this.conexao = conexao;
+        nome.setVisible(false);
+        nomej.setVisible(false);
+        datanascimento.setVisible(false);
+        datanascimentoj.setVisible(false);
+        endereco.setVisible(false);
+        enderecoj.setVisible(false);
+        bairro.setVisible(false);
+        bairroj.setVisible(false);
+        municipio.setVisible(false);
+        municipioj.setVisible(false);
+        cep.setVisible(false);
+        cepj.setVisible(false);
+        estado.setVisible(false);
+        estadoj.setVisible(false);
+        telefone.setVisible(false);
+        telefonej.setVisible(false);
+        celular.setVisible(false);
+        celularj.setVisible(false);
+        cpf.setVisible(false);
+        cpfj.setVisible(false);
+        user.setVisible(false);
+        userj.setVisible(false);
+        password.setVisible(false);
+        password.setVisible(false);        
     }
 
 
@@ -15,47 +45,41 @@ public class AlterarPaciente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
-        identificacao = new javax.swing.JTextField();
+        jPasswordField1 = new javax.swing.JPasswordField();
         nome = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
-        endereco = new javax.swing.JLabel();
-        name = new javax.swing.JLabel();
+        endereco = new javax.swing.JTextField();
+        enderecoj = new javax.swing.JLabel();
+        nomej = new javax.swing.JLabel();
         bairro = new javax.swing.JTextField();
         municipio = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        telefone = new javax.swing.JTextField();
+        cep = new javax.swing.JTextField();
+        estado = new javax.swing.JComboBox<>();
+        celular = new javax.swing.JTextField();
+        cpf = new javax.swing.JTextField();
+        municipioj = new javax.swing.JLabel();
+        bairroj = new javax.swing.JLabel();
+        telefonej = new javax.swing.JLabel();
+        cpfj = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jLabel11 = new javax.swing.JLabel();
+        cepj = new javax.swing.JLabel();
+        estadoj = new javax.swing.JLabel();
+        celularj = new javax.swing.JLabel();
+        datanascimento = new javax.swing.JFormattedTextField();
+        datanascimentoj = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        cpfSearch = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        password = new javax.swing.JPasswordField();
+        user = new javax.swing.JTextField();
+        userj = new javax.swing.JLabel();
+        passwordj = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+
+        jPasswordField1.setText("jPasswordField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
-
-        jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jLabel2.setText("Identificação:");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(40, 230, 110, 18);
-
-        identificacao.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        getContentPane().add(identificacao);
-        identificacao.setBounds(170, 210, 260, 50);
 
         nome.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         nome.addActionListener(new java.awt.event.ActionListener() {
@@ -64,30 +88,30 @@ public class AlterarPaciente extends javax.swing.JFrame {
             }
         });
         getContentPane().add(nome);
-        nome.setBounds(170, 270, 600, 50);
-
-        jTextField1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(170, 330, 600, 50);
+        nome.setBounds(180, 180, 270, 50);
 
         endereco.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        endereco.setText("Endereço: ");
+        endereco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enderecoActionPerformed(evt);
+            }
+        });
         getContentPane().add(endereco);
-        endereco.setBounds(40, 350, 90, 21);
+        endereco.setBounds(180, 240, 600, 50);
 
-        name.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        name.setText("Nome:");
-        getContentPane().add(name);
-        name.setBounds(40, 290, 90, 21);
+        enderecoj.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        enderecoj.setText("Endereço: ");
+        getContentPane().add(enderecoj);
+        enderecoj.setBounds(50, 260, 90, 21);
+
+        nomej.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        nomej.setText("Nome:");
+        getContentPane().add(nomej);
+        nomej.setBounds(50, 200, 90, 21);
 
         bairro.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         getContentPane().add(bairro);
-        bairro.setBounds(170, 390, 270, 50);
+        bairro.setBounds(180, 300, 270, 50);
 
         municipio.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         municipio.addActionListener(new java.awt.event.ActionListener() {
@@ -96,62 +120,53 @@ public class AlterarPaciente extends javax.swing.JFrame {
             }
         });
         getContentPane().add(municipio);
-        municipio.setBounds(550, 390, 220, 50);
+        municipio.setBounds(560, 300, 220, 50);
 
-        jTextField2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        getContentPane().add(jTextField2);
-        jTextField2.setBounds(170, 510, 270, 50);
+        telefone.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        getContentPane().add(telefone);
+        telefone.setBounds(180, 420, 270, 50);
 
-        jTextField3.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        getContentPane().add(jTextField3);
-        jTextField3.setBounds(170, 450, 270, 50);
+        cep.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        getContentPane().add(cep);
+        cep.setBounds(180, 360, 270, 50);
 
-        jComboBox1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins" }));
-        getContentPane().add(jComboBox1);
-        jComboBox1.setBounds(550, 450, 220, 50);
+        estado.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--", "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins" }));
+        getContentPane().add(estado);
+        estado.setBounds(560, 360, 220, 50);
 
-        jTextField4.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        celular.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        celular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                celularActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField4);
-        jTextField4.setBounds(550, 510, 220, 50);
+        getContentPane().add(celular);
+        celular.setBounds(560, 420, 220, 50);
 
-        jTextField5.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        getContentPane().add(jTextField5);
-        jTextField5.setBounds(170, 660, 380, 50);
+        cpf.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        getContentPane().add(cpf);
+        cpf.setBounds(180, 480, 270, 50);
 
-        jTextField6.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        getContentPane().add(jTextField6);
-        jTextField6.setBounds(170, 580, 270, 50);
+        municipioj.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        municipioj.setText("Municipio:");
+        getContentPane().add(municipioj);
+        municipioj.setBounds(460, 320, 90, 21);
 
-        jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jLabel4.setText("Municipio:");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(450, 410, 90, 21);
+        bairroj.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        bairroj.setText("Bairro:");
+        getContentPane().add(bairroj);
+        bairroj.setBounds(50, 320, 70, 21);
 
-        jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jLabel3.setText("Bairro:");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(40, 410, 70, 21);
+        telefonej.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        telefonej.setText("Telefone:");
+        getContentPane().add(telefonej);
+        telefonej.setBounds(50, 440, 80, 21);
 
-        jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jLabel5.setText("Telefone:");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(40, 530, 80, 21);
-
-        jLabel6.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jLabel6.setText("Email:");
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(40, 680, 49, 18);
-
-        jLabel7.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jLabel7.setText("CNPJ/CPF:");
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(40, 600, 90, 21);
+        cpfj.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        cpfj.setText("CPF:");
+        getContentPane().add(cpfj);
+        cpfj.setBounds(50, 500, 90, 21);
 
         jButton1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jButton1.setText("Alterar");
@@ -161,47 +176,68 @@ public class AlterarPaciente extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(980, 670, 170, 50);
+        jButton1.setBounds(520, 680, 170, 50);
 
-        jLabel8.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jLabel8.setText("CEP:");
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(40, 470, 50, 21);
+        cepj.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        cepj.setText("CEP:");
+        getContentPane().add(cepj);
+        cepj.setBounds(50, 380, 50, 21);
 
-        jLabel9.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jLabel9.setText("Estado:");
-        getContentPane().add(jLabel9);
-        jLabel9.setBounds(460, 470, 70, 18);
+        estadoj.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        estadoj.setText("Estado:");
+        getContentPane().add(estadoj);
+        estadoj.setBounds(470, 380, 70, 18);
 
-        jLabel10.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jLabel10.setText("Celular:");
-        getContentPane().add(jLabel10);
-        jLabel10.setBounds(460, 520, 70, 21);
+        celularj.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        celularj.setText("Celular:");
+        getContentPane().add(celularj);
+        celularj.setBounds(470, 430, 70, 21);
 
         try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            datanascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jFormattedTextField1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        getContentPane().add(jFormattedTextField1);
-        jFormattedTextField1.setBounds(590, 210, 180, 50);
+        datanascimento.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        getContentPane().add(datanascimento);
+        datanascimento.setBounds(600, 180, 180, 50);
 
-        jLabel11.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jLabel11.setText("Data de Nasc.:");
-        getContentPane().add(jLabel11);
-        jLabel11.setBounds(450, 220, 120, 18);
+        datanascimentoj.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        datanascimentoj.setText("Data de Nasc.:");
+        getContentPane().add(datanascimentoj);
+        datanascimentoj.setBounds(460, 200, 120, 18);
 
         jLabel12.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jLabel12.setText("Usuário:");
+        jLabel12.setText("CPF do Paciente:");
         getContentPane().add(jLabel12);
-        jLabel12.setBounds(40, 60, 80, 21);
-        getContentPane().add(jTextField7);
-        jTextField7.setBounds(170, 50, 300, 50);
+        jLabel12.setBounds(40, 60, 140, 21);
+        getContentPane().add(cpfSearch);
+        cpfSearch.setBounds(200, 50, 300, 50);
 
         jButton2.setText("Buscar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton2);
         jButton2.setBounds(550, 50, 110, 50);
+        getContentPane().add(password);
+        password.setBounds(180, 600, 210, 50);
+
+        user.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        getContentPane().add(user);
+        user.setBounds(180, 540, 210, 50);
+
+        userj.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        userj.setText("Usuário:");
+        getContentPane().add(userj);
+        userj.setBounds(50, 550, 80, 21);
+
+        passwordj.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        passwordj.setText("Senha:");
+        getContentPane().add(passwordj);
+        passwordj.setBounds(50, 600, 60, 21);
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cliente/GUI/imagens/fundo.png"))); // NOI18N
@@ -216,52 +252,158 @@ public class AlterarPaciente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nomeActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void enderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enderecoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_enderecoActionPerformed
 
     private void municipioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_municipioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_municipioActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void celularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_celularActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_celularActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.dispose();
-        new CadastrarPacienteDadosDeAcesso().setVisible(true);
+        try {
+            if(!(nome.getText().isBlank()))
+                this.nomeAux = nome.getText();
+            if(!(endereco.getText().isBlank()))
+                this.enderecoAux = endereco.getText();
+            if(!(bairro.getText().isBlank()))
+                this.bairroAux = bairro.getText();
+            if(!(municipio.getText().isBlank()))
+                this.municipioAux = municipio.getText();
+            if(!(cep.getText().isBlank()))
+                this.cepAux = cep.getText();
+            if(!(estado.getSelectedItem().equals("--")))
+                this.estadoAux = estado.getSelectedItem().toString();
+            if(!(telefone.getText().isBlank()))
+                this.telefoneAux = telefone.getText();
+            if(!(celular.getText().isBlank()))
+                this.celularAux = celular.getText();
+            if(!(user.getText().isBlank()))
+                this.userAux = user.getText();
+            if(!(password.getPassword().length < 1))
+                this.senhaAux = new String(password.getPassword());
+            
+            String str = "AlterarPaciente@"+this.nomeAux+"@"+datanascimento.getText()+"@"+this.enderecoAux+"@"+this.bairroAux+"@"+this.municipioAux+"@"+
+                    this.cepAux+"@"+this.estadoAux+"@"+this.telefoneAux+"@"+this.celularAux+"@"+this.userAux+"@"+this.senhaAux;
+            conexao.enviar(str);
+            String op =conexao.receber();
+            switch(op){
+                case "ok":
+                    JOptionPane.showMessageDialog(null,"Paciente alterado com sucesso!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                case "userjaexiste":
+                    JOptionPane.showMessageDialog(null,"Nome de usuario informado já existe. Tente outro!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
+                    user.setText("");
+                    break;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(AlterarPaciente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if(cpfSearch.getText().isBlank()){
+           JOptionPane.showMessageDialog(null,"Digite algo no campo de busca!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            try {
+                String str = "BuscarCPFPaciente@"+cpfSearch.getText();
+                conexao.enviar(str);
+                String op = conexao.receber();
+                switch(op){
+                    case "naoencontrado":
+                        JOptionPane.showMessageDialog(null,"Paciente não encontrado", "Info" ,JOptionPane.INFORMATION_MESSAGE);
+                        break;   
+                    default:
+                        nome.setVisible(true);
+                        nomej.setVisible(true);
+                        datanascimento.setVisible(true);
+                        datanascimento.setEditable(false);
+                        datanascimentoj.setVisible(true);
+                        endereco.setVisible(true);
+                        enderecoj.setVisible(true);
+                        bairro.setVisible(true);
+                        bairroj.setVisible(true);
+                        municipio.setVisible(true);
+                        municipioj.setVisible(true);
+                        cep.setVisible(true);
+                        cepj.setVisible(true);
+                        estado.setVisible(true);
+                        estadoj.setVisible(true);
+                        telefone.setVisible(true);
+                        telefonej.setVisible(true);
+                        celular.setVisible(true);
+                        celularj.setVisible(true);
+                        cpf.setVisible(true);
+                        cpf.setEditable(false);
+                        cpfj.setVisible(true);
+                        user.setVisible(true);
+                        userj.setVisible(true);
+                        password.setVisible(true);
+                        password.setVisible(true);
+                        String[] dados = op.split("@");
+                        nome.setText(dados[0]);
+                        this.nomeAux = dados[0];
+                        datanascimento.setText(dados[1]);
+                        endereco.setText(dados[2]);
+                        this.enderecoAux = dados[2];
+                        bairro.setText(dados[3]);
+                        this.bairroAux = dados[3];
+                        municipio.setText(dados[4]);
+                        this.municipioAux = dados[4];
+                        cep.setText(dados[5]);
+                        this.cepAux = dados[5];
+                        estado.setSelectedItem(dados[6]);
+                        this.estadoAux = dados[6];
+                        telefone.setText(dados[7]);
+                        this.telefoneAux = dados[7];
+                        celular.setText(dados[8]);
+                        this.celularAux = dados[8];
+                        cpf.setText(dados[9]);
+                        user.setText(dados[10]);
+                        this.userAux = dados[10];
+                        this.senhaAux = dados[11];
+                        break;
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(AlterarPaciente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField bairro;
-    private javax.swing.JLabel endereco;
-    private javax.swing.JTextField identificacao;
+    private javax.swing.JLabel bairroj;
+    private javax.swing.JTextField celular;
+    private javax.swing.JLabel celularj;
+    private javax.swing.JTextField cep;
+    private javax.swing.JLabel cepj;
+    private javax.swing.JTextField cpf;
+    private javax.swing.JTextField cpfSearch;
+    private javax.swing.JLabel cpfj;
+    private javax.swing.JFormattedTextField datanascimento;
+    private javax.swing.JLabel datanascimentoj;
+    private javax.swing.JTextField endereco;
+    private javax.swing.JLabel enderecoj;
+    private javax.swing.JComboBox<String> estado;
+    private javax.swing.JLabel estadoj;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField municipio;
-    private javax.swing.JLabel name;
+    private javax.swing.JLabel municipioj;
     private javax.swing.JTextField nome;
+    private javax.swing.JLabel nomej;
+    private javax.swing.JPasswordField password;
+    private javax.swing.JLabel passwordj;
+    private javax.swing.JTextField telefone;
+    private javax.swing.JLabel telefonej;
+    private javax.swing.JTextField user;
+    private javax.swing.JLabel userj;
     // End of variables declaration//GEN-END:variables
 }
