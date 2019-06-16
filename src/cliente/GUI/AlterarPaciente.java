@@ -310,7 +310,7 @@ public class AlterarPaciente extends javax.swing.JFrame {
            JOptionPane.showMessageDialog(null,"Digite algo no campo de busca!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
         }else{
             try {
-                String str = "BuscarCPFPaciente@"+cpfSearch.getText();
+                String str = "BuscarPaciente@"+cpfSearch.getText();
                 conexao.enviar(str);
                 String op = conexao.receber();
                 switch(op){
@@ -347,25 +347,25 @@ public class AlterarPaciente extends javax.swing.JFrame {
                         String[] dados = op.split("@");
                         nome.setText(dados[0]);
                         this.nomeAux = dados[0];
-                        datanascimento.setText(dados[1]);
-                        endereco.setText(dados[2]);
-                        this.enderecoAux = dados[2];
-                        bairro.setText(dados[3]);
-                        this.bairroAux = dados[3];
-                        municipio.setText(dados[4]);
-                        this.municipioAux = dados[4];
-                        cep.setText(dados[5]);
-                        this.cepAux = dados[5];
-                        estado.setSelectedItem(dados[6]);
-                        this.estadoAux = dados[6];
-                        telefone.setText(dados[7]);
-                        this.telefoneAux = dados[7];
-                        celular.setText(dados[8]);
-                        this.celularAux = dados[8];
-                        cpf.setText(dados[9]);
-                        user.setText(dados[10]);
-                        this.userAux = dados[10];
-                        this.senhaAux = dados[11];
+                        datanascimento.setText(dados[4]);
+                        endereco.setText(dados[5]);
+                        this.enderecoAux = dados[5];
+                        bairro.setText(dados[6]);
+                        this.bairroAux = dados[6];
+                        municipio.setText(dados[7]);
+                        this.municipioAux = dados[7];
+                        cep.setText(dados[8]);
+                        this.cepAux = dados[8];
+                        estado.setSelectedItem(dados[9]);
+                        this.estadoAux = dados[9];
+                        telefone.setText(dados[10]);
+                        this.telefoneAux = dados[10];
+                        celular.setText(dados[11]);
+                        this.celularAux = dados[11];
+                        cpf.setText(dados[1]);
+                        user.setText(dados[2]);
+                        this.userAux = dados[2];
+                        this.senhaAux = dados[3];
                         break;
                 }
             } catch (IOException ex) {

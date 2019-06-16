@@ -124,7 +124,7 @@ public class CadastrarMedico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Preencha todos os campos.", "Info" ,JOptionPane.INFORMATION_MESSAGE);
         }else{
             try {
-                String str = "CadastrarMedico@"+nome.getText()+"@"+cpf.getText()+"@"+especialidade.getText()+"@"+user.getText()+"@"+user.getText()+"@"+ new String(password.getPassword());
+                String str = "CadastrarMedico@"+nome.getText()+"@"+cpf.getText()+"@"+user.getText()+"@"+ new String(password.getPassword())+"@"+especialidade.getText();
                 conexao.enviar(str);
                 String op = conexao.receber();
                 switch(op){

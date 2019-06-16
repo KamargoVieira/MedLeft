@@ -1,6 +1,9 @@
 package cliente.GUI;
 
 import cliente.Conexao;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class TelaMedico extends javax.swing.JFrame {
     Conexao conexao;
@@ -157,7 +160,11 @@ public class TelaMedico extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        new Agenda(conexao).setVisible(true);
+        try {
+            new Agenda(conexao).setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(TelaMedico.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
 

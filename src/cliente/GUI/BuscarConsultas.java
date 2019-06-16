@@ -16,6 +16,26 @@ public class BuscarConsultas extends javax.swing.JFrame {
         this.conexao = conexao;
         tabela.setVisible(false);
     }
+    
+    public void atualizaTabela(){
+        try {
+            String str = "BuscarConsulta@"+cpfSearch.getText();
+            conexao.enviar(str);
+            String[] rows = conexao.receber().split("%");
+            Integer countRow = 0;
+            for(String registro : rows){
+                String[] colunas = registro.split("@");
+                Integer countCol = 0;
+                for(String dado : colunas){
+                    tabela.setValueAt(dado, countRow, countCol);
+                    countCol++;
+                }
+                countRow++;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(BuscarConsultas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -106,25 +126,9 @@ public class BuscarConsultas extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(cpfSearch.getText().isBlank()){
             JOptionPane.showMessageDialog(null,"Preencha todos os campos!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
-        }else{
-            try {
-                tabela.setVisible(true);
-                String str = "consultasDoPaciente@"+cpfSearch.getText();
-                conexao.enviar(str);
-                String[] rows = conexao.receber().split("%");
-                Integer countRow = 0;
-                for(String registro : rows){
-                    String[] colunas = registro.split("@");
-                    Integer countCol = 0;
-                    for(String dado : colunas){
-                        tabela.setValueAt(dado, countRow, countCol);
-                        countCol++;
-                    }
-                    countRow++;
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(BuscarConsultas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        }else{            
+            tabela.setVisible(true);
+            atualizaTabela();            
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -133,14 +137,14 @@ public class BuscarConsultas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Preencha o campo de busca", "Info" ,JOptionPane.INFORMATION_MESSAGE);
         }else{
             try {
-                conexao.enviar("confirmarConsulta@"+idconsulta.getText());
+                conexao.enviar("ConfirmaConsulta@"+idconsulta.getText());
                 String op = conexao.receber();
                 switch(op){
                     case "naoencontrado":
                          JOptionPane.showMessageDialog(null,"Consulta nao encontrada", "Info" ,JOptionPane.INFORMATION_MESSAGE);
                         break;
                     default:
-                        tabela.setValueAt("Confirmado", Integer.parseInt(op),6);
+                        atualizaTabela();
                         break;
                 }
             } catch (IOException ex) {

@@ -181,7 +181,7 @@ public class AlterarMedico extends javax.swing.JFrame {
            JOptionPane.showMessageDialog(null,"Digite algo no campo de busca!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
         }else{
            try {
-               String str = "BuscarCPFMedico@"+cpfSearch.getText();
+               String str = "BuscarMedico@"+cpfSearch.getText();
                conexao.enviar(str);
                String op = conexao.receber();
                

@@ -160,7 +160,7 @@ public class AlterarFuncionario extends javax.swing.JFrame {
            JOptionPane.showMessageDialog(null,"Digite algo no campo de busca!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
        }else{
            try {
-               String str = "BuscarCPFFuncionario@"+cpfSearch.getText();
+               String str = "BuscarFuncionario@"+cpfSearch.getText();
                conexao.enviar(str);
                String op = conexao.receber();
                

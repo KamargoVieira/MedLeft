@@ -16,19 +16,28 @@ public class Agenda extends javax.swing.JFrame {
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     public Agenda(Conexao conexao) throws IOException {
         initComponents();
-        this.conexao = conexao;
-        String str = "consultasDoDia@"+sdf.format(new Date());
-        conexao.enviar(str);
-        String[] rows = conexao.receber().split("%");
-        Integer countRow = 0;
-        for(String registro : rows){
-            String[] colunas = registro.split("@");
-            Integer countCol = 0;
-            for(String dado : colunas){
-                tabela.setValueAt(dado, countRow, countCol);
-                countCol++;
+        this.conexao = conexao;        
+        atualizaTabela();
+        
+    }
+    
+    public void atualizaTabela(){
+        try {
+            String str = "Agenda@"+sdf.format(new Date());
+            conexao.enviar(str);
+            String[] rows = conexao.receber().split("%");
+            Integer countRow = 0;
+            for(String registro : rows){
+                String[] colunas = registro.split("@");
+                Integer countCol = 0;
+                for(String dado : colunas){
+                    tabela.setValueAt(dado, countRow, countCol);
+                    countCol++;
+                }
+                countRow++;
             }
-            countRow++;
+        } catch (IOException ex) {
+            Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -116,7 +125,7 @@ public class Agenda extends javax.swing.JFrame {
                          JOptionPane.showMessageDialog(null,"Paciente não encontrado", "Info" ,JOptionPane.INFORMATION_MESSAGE);
                         break;
                     default:
-                        tabela.setValueAt("Atendido", Integer.parseInt(op),5);
+                        atualizaTabela();
                         break;
                 }
             } catch (IOException ex) {
