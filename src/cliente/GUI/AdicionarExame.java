@@ -58,7 +58,7 @@ public class AdicionarExame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Informe o nome do Exame a ser adicionado!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
         }else{
             try {
-                String str = "AddExame@" + nameExame.getText();
+                String str = "AdicionaExame@" + nameExame.getText();
                 conexao.enviar(str);
                 String op = conexao.receber();
                 

@@ -123,7 +123,7 @@ public class TelaLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Preencha todos os campos!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
         }else{
                try {
-                   conexao.enviar("login,"+user.getText()+","+senha+","+typeUser.getSelectedItem());
+                   conexao.enviar("TelaLogin@"+user.getText()+"@"+senha+"@"+typeUser.getSelectedItem());
                    String op = conexao.receber();
                    
                     switch(op){

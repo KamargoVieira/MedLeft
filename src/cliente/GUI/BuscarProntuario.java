@@ -311,7 +311,7 @@ public class BuscarProntuario extends javax.swing.JFrame {
             try {
                 String str = "AlterarProntuario@"+queixaprincipal.getText()+"@"+ historicofamiliar.getText()+"@"+obs.getText()+"@"+
                         altura.getText()+"@"+peso.getText()+"@"+hemoglucoteste.getText()+"@"+temperatura.getText()+"@"+frequenciacaradiaca.getText()+"@"+
-                        pressaosistotica.getText()+"@"+pressaodiastolica.getText()+"@"+ obs2.getText();
+                        pressaosistotica.getText()+"@"+pressaodiastolica.getText()+"@"+ obs2.getText()+"@"+cpfSearch.getText();
                 conexao.enviar(str);
                 String op = conexao.receber();
                 switch(op){

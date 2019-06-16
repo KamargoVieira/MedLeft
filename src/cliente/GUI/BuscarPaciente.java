@@ -249,14 +249,14 @@ public class BuscarPaciente extends javax.swing.JFrame {
                         String[] dados = op.split("@");
                         nome.setText(dados[0]);
                         cpf.setText(dados[1]);
-                        datanascimento.setText(dados[2]);
-                        endereco.setText(dados[3]);
-                        bairro.setText(dados[4]);
-                        municipio.setText(dados[5]);
-                        cep.setText(dados[6]);
-                        estado.setText(dados[7]);
-                        telefone.setText(dados[8]);
-                        celular.setText(dados[9]);
+                        datanascimento.setText(dados[4]);
+                        endereco.setText(dados[5]);
+                        bairro.setText(dados[6]);
+                        municipio.setText(dados[7]);
+                        cep.setText(dados[8]);
+                        estado.setText(dados[9]);
+                        telefone.setText(dados[10]);
+                        celular.setText(dados[11]);
                         break;
                 }
             } catch (IOException ex) {

@@ -103,7 +103,7 @@ public class BuscarMedico extends javax.swing.JFrame {
                         String[] dados = op.split("@");
                         nome.setText(dados[0]);
                         cpf.setText(dados[1]);
-                        especialidade.setText(dados[2]);
+                        especialidade.setText(dados[4]);
                         break;
                 }
            } catch (IOException ex) {
