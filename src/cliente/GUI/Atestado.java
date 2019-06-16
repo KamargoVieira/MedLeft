@@ -1,6 +1,9 @@
 package cliente.GUI;
 
 import cliente.Conexao;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -100,13 +103,20 @@ public class Atestado extends javax.swing.JFrame {
                 String str = "Atestado@"+cpf.getText()+"@"+inicio.getText()+"@"+fim.getText()+"@"+motivos.getText();
                 conexao.enviar(str);
                 String op = conexao.receber();
-                switch(op){
-                    case "ok":
-                        JOptionPane.showMessageDialog(null,"Aguarde, Atestado será impresso...", "Info" ,JOptionPane.INFORMATION_MESSAGE);
-                        break;
+                switch(op){                    
                     case "naoencotrado":
                         JOptionPane.showMessageDialog(null,"Paciente não encontrado!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
                         cpf.setText("");
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(null,"Aguarde, Atestado será impresso...", "Info" ,JOptionPane.INFORMATION_MESSAGE);
+                        String endereco = new File(".").getCanonicalPath();
+                        File arquivo = new File(endereco+"/src/cliente/Atestados/"+cpf.getText()+".txt");
+                        FileWriter fw = new FileWriter(arquivo);
+                        BufferedWriter bw = new BufferedWriter(fw); 
+                        bw.write(op);
+                        bw.close();
+                        fw.close();
                         break;
                 }
             } catch (IOException ex) {

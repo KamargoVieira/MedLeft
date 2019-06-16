@@ -10,9 +10,12 @@ import javax.swing.JOptionPane;
 public class AgendarExame extends javax.swing.JFrame {
 
     Conexao conexao;
-    public AgendarExame(Conexao conexao) {
+    String tipoUsuario;
+    String status;
+    public AgendarExame(Conexao conexao, String tipoUsuario) {
         initComponents();
         this.conexao = conexao;
+        this.tipoUsuario = tipoUsuario;
     }
 
     @SuppressWarnings("unchecked")
@@ -140,7 +143,11 @@ public class AgendarExame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Preencha todos os campos!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
         }else{
             try {
-                String str = "AgendarExame@"+exame.getSelectedItem()+"@"+cpf.getText()+"@"+telefone.getText()+"@"+data.getText()+"@"+horario.getSelectedItem()+"@"+obs.getText()+"confirmada";
+                if(tipoUsuario.equals("paciente"))
+                    status = "nao confirmado";
+                else
+                    status = "confirmado";
+                String str = "AgendarExame@"+exame.getSelectedItem()+"@"+cpf.getText()+"@"+telefone.getText()+"@"+data.getText()+"@"+horario.getSelectedItem()+"@"+obs.getText()+"@"+status;
                 conexao.enviar(str);
                 String op = conexao.receber();
                 switch(op){

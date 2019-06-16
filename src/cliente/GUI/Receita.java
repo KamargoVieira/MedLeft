@@ -1,6 +1,9 @@
 package cliente.GUI;
 
 import cliente.Conexao;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -83,8 +86,15 @@ public class Receita extends javax.swing.JFrame {
                 conexao.enviar(str);
                 String op = conexao.receber();
                 switch(op){
-                    case "ok":
+                    default:
                         JOptionPane.showMessageDialog(null,"Aguarde, Receita será impresso...", "Info" ,JOptionPane.INFORMATION_MESSAGE);
+                        String endereco = new File(".").getCanonicalPath();
+                        File arquivo = new File(endereco+"/src/cliente/Receitas/"+cpf.getText()+".txt");
+                        FileWriter fw = new FileWriter(arquivo);
+                        BufferedWriter bw = new BufferedWriter(fw); 
+                        bw.write(op);
+                        bw.close();
+                        fw.close();
                         break;
                     case "naoencotrado":
                         JOptionPane.showMessageDialog(null,"Paciente não encontrado!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
