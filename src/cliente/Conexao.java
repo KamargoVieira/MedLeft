@@ -5,6 +5,7 @@
  */
 package cliente;
 
+import cliente.GUI.Agenda;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -24,6 +25,7 @@ public class Conexao {
         this.cliente = new Socket("127.0.0.1", 12345);
         this.saida = new DataOutputStream(cliente.getOutputStream());
         this.entrada = new DataInputStream(cliente.getInputStream());
+        
     }
 
     public void enviar(String str) throws IOException {
