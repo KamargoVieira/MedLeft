@@ -18,7 +18,7 @@ public class MedicoDAO {
 
     public boolean adcMedico(Medico m) throws SQLException {
 
-        if (validaLogin(m.getUsuario(), m.getSenha())) {
+        if (validaLogin(m.getUsuario())) {
             return false;
         } else {
 
@@ -172,8 +172,8 @@ public class MedicoDAO {
                     + "nome = ?,"
                     + "usuario = ?,"
                     + "senha = ?,"
-                    + "especialidade = ?,"
-                    + " WHERE cpf = ?;";
+                    + "especialidade = ? "
+                    + "WHERE cpf = ?;";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlInsert);
             preparedStatement.setString(1, m.getNome());

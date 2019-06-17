@@ -276,6 +276,8 @@ public class Servidor extends Thread {
             }    
         } catch (IOException ex) {
                 Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }  
     }
     
@@ -305,6 +307,8 @@ public class Servidor extends Thread {
             }
         }catch(IOException ex){
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -318,7 +322,7 @@ public class Servidor extends Thread {
             }else{            
                 conexao.enviar("jaexiste");            
             }
-        } catch (IOException ex) {
+        } catch (IOException | SQLException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -331,7 +335,7 @@ public class Servidor extends Thread {
             }else{
                 conexao.enviar("naoencontrado");
             }
-        } catch (IOException ex) {
+        } catch (IOException | SQLException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

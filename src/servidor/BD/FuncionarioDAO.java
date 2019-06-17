@@ -98,6 +98,29 @@ public class FuncionarioDAO {
         }
         return false;
     }
+    
+     public boolean validaLogin(String usuario) throws SQLException {
+
+        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+
+        String sql = "SELECT * FROM Funcionario WHERE usuario = ?";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, usuario);
+
+        ResultSet result = preparedStatement.executeQuery();
+
+        preparedStatement.close();
+
+        connection.close();
+
+        if (result == null) {
+            return false;
+        } else if (result.getString("usuario").equals(usuario)) {
+            return true;
+        }
+        return false;
+    }
 
     public boolean removeFuncionario(String cpf) throws SQLException {
         
@@ -118,6 +141,36 @@ public class FuncionarioDAO {
             return true;
         } else {
             return false;
+        }
+    }
+
+    public boolean atualizaFuncionario(Funcionario f) throws SQLException {
+        
+        if (validaLogin(f.getUsuario())) {
+            return false;
+        } else {
+            
+            this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+
+            String sqlInsert = "UPDATE Funcionario SET "
+                    + "nome = ?,"
+                    + "usuario = ?,"
+                    + "senha = ?"
+                    + " WHERE cpf = ?;";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlInsert);
+            preparedStatement.setString(1, f.getNome());
+            preparedStatement.setString(2, f.getUsuario());
+            preparedStatement.setString(3, f.getSenha());
+            preparedStatement.setString(4, f.getCpf());
+
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+
+            connection.close();
+
+            return true;
         }
     }
 }
