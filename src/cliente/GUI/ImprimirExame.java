@@ -1,6 +1,9 @@
 package cliente.GUI;
 
 import cliente.Conexao;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,6 +15,27 @@ public class ImprimirExame extends javax.swing.JFrame {
     public ImprimirExame(Conexao conexao) {
         initComponents();
         this.conexao = conexao;
+    }
+    
+    public void atualizarTabela(){
+        try {
+            tabela.setVisible(true);
+            String str = "BuscaExamesImprimir@"+cpfSearch.getText();
+            conexao.enviar(str);
+            String[] rows = conexao.receber().split("%");
+            Integer countRow = 0;
+            for(String registro : rows){
+                String[] colunas = registro.split("@");
+                Integer countCol = 0;
+                for(String dado : colunas){
+                    tabela.setValueAt(dado, countRow, countCol);
+                    countCol++;
+                }
+                countRow++;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(BuscarConsultas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
      @SuppressWarnings("unchecked")
@@ -34,17 +58,17 @@ public class ImprimirExame extends javax.swing.JFrame {
         tabela.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID (Exame)", "Tipo", "CPF (Paciente)", "Imprimir"
+                "ID (Exame)", "Tipo", "CPF (Paciente)"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -104,24 +128,7 @@ public class ImprimirExame extends javax.swing.JFrame {
         if(cpfSearch.getText().isBlank()){
             JOptionPane.showMessageDialog(null,"Preencha todos os campos!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
         }else{
-            try {
-                tabela.setVisible(true);
-                String str = "ImprimirExames@"+cpfSearch.getText();
-                conexao.enviar(str);
-                String[] rows = conexao.receber().split("%");
-                Integer countRow = 0;
-                for(String registro : rows){
-                    String[] colunas = registro.split("@");
-                    Integer countCol = 0;
-                    for(String dado : colunas){
-                        tabela.setValueAt(dado, countRow, countCol);
-                        countCol++;
-                    }
-                    countRow++;
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(BuscarConsultas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            atualizarTabela();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -137,7 +144,14 @@ public class ImprimirExame extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null,"Exame nao encontrado", "Info" ,JOptionPane.INFORMATION_MESSAGE);
                         break;
                     case "ok":
-                         JOptionPane.showMessageDialog(null,"Aguarde...O exame será impresso", "Info" ,JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null,"Aguarde...O exame será impresso", "Info" ,JOptionPane.INFORMATION_MESSAGE);
+                        String endereco = new File(".").getCanonicalPath();
+                        File arquivo = new File(endereco+"/src/cliente/Exames/"+cpfSearch.getText()+".txt");
+                        FileWriter fw = new FileWriter(arquivo);
+                        BufferedWriter bw = new BufferedWriter(fw); 
+                        bw.write("Exame aqui");
+                        bw.close();
+                        fw.close();
                          break;
                 }
             } catch (IOException ex) {

@@ -9,9 +9,49 @@ import javax.swing.JOptionPane;
 public class BuscarProntuario extends javax.swing.JFrame {
 
     Conexao conexao;
-    public BuscarProntuario(Conexao conexao) {
+    String tipoUsuario;
+    String user;
+    public BuscarProntuario(Conexao conexao, String tipoUsuario, String user) {
         initComponents();
         this.conexao = conexao;
+        this.tipoUsuario = tipoUsuario;
+        this.user = user;
+        if(tipoUsuario.equals("paciente")){
+            try {
+                String str  = "BuscarProntuarioPaciente@"+user;
+                conexao.enviar(str);
+                String op = conexao.receber();
+                String[] dados = op.split("@");
+                queixaprincipal.setText(dados[0]);
+                historicofamiliar.setText(dados[1]);
+                obs.setText(dados[2]);
+                altura.setText(dados[3]);
+                peso.setText(dados[4]);
+                hemoglucoteste.setText(dados[5]);
+                temperatura.setText(dados[6]);
+                frequenciacaradiaca.setText(dados[7]);
+                pressaosistotica.setText(dados[8]);
+                pressaodiastolica.setText(dados[9]);
+                obs2.setText(dados[10]);                
+                queixaprincipal.setEditable(false);
+                historicofamiliar.setEditable(false);
+                obs.setEditable(false);
+                altura.setEditable(false);
+                peso.setEditable(false);
+                hemoglucoteste.setEditable(false);
+                temperatura.setEditable(false);
+                frequenciacaradiaca.setEditable(false);
+                pressaosistotica.setEditable(false);
+                pressaodiastolica.setEditable(false);
+                obs2.setEditable(false);
+                cpfj.setVisible(false);
+                cpfSearch.setVisible(false);
+                buscarbt.setVisible(false);
+                
+            } catch (IOException ex) {
+                Logger.getLogger(BuscarProntuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -19,9 +59,9 @@ public class BuscarProntuario extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
+        cpfj = new javax.swing.JLabel();
         cpfSearch = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        buscarbt = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -80,21 +120,21 @@ public class BuscarProntuario extends javax.swing.JFrame {
         getContentPane().add(jButton1);
         jButton1.setBounds(990, 680, 170, 50);
 
-        jLabel12.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jLabel12.setText("CPF:");
-        getContentPane().add(jLabel12);
-        jLabel12.setBounds(40, 80, 80, 21);
+        cpfj.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        cpfj.setText("CPF:");
+        getContentPane().add(cpfj);
+        cpfj.setBounds(40, 80, 80, 21);
         getContentPane().add(cpfSearch);
         cpfSearch.setBounds(170, 60, 300, 50);
 
-        jButton2.setText("Buscar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        buscarbt.setText("Buscar");
+        buscarbt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                buscarbtActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2);
-        jButton2.setBounds(520, 60, 110, 50);
+        getContentPane().add(buscarbt);
+        buscarbt.setBounds(520, 60, 110, 50);
 
         jLabel13.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         getContentPane().add(jLabel13);
@@ -325,7 +365,7 @@ public class BuscarProntuario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void buscarbtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarbtActionPerformed
         if(cpfSearch.getText().isBlank()){
             JOptionPane.showMessageDialog(null,"Digite algo no campo de busca!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
         }else{
@@ -349,28 +389,28 @@ public class BuscarProntuario extends javax.swing.JFrame {
                         frequenciacaradiaca.setText(dados[7]);
                         pressaosistotica.setText(dados[8]);
                         pressaodiastolica.setText(dados[9]);
-                        obs2.setText(dados[10]);                        
+                        obs2.setText(dados[10]);                         
                         break;
                 }
             } catch (IOException ex) {
                 Logger.getLogger(BuscarProntuario.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_buscarbtActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField altura;
+    private javax.swing.JButton buscarbt;
     private javax.swing.JTextField cpfSearch;
+    private javax.swing.JLabel cpfj;
     private javax.swing.JTextField frequenciacaradiaca;
     private javax.swing.JTextField hemoglucoteste;
     private javax.swing.JTextArea historicofamiliar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;

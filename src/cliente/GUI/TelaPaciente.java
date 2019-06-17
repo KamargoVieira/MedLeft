@@ -5,10 +5,12 @@ import cliente.Conexao;
 public class TelaPaciente extends javax.swing.JFrame {
 
     
-    Conexao conexao;    
-    public TelaPaciente(Conexao conexao) {
+    Conexao conexao;  
+    String user;
+    public TelaPaciente(Conexao conexao, String user) {
         this.conexao = conexao;
         initComponents();
+        this.user = user;
     }
 
    
@@ -117,15 +119,15 @@ public class TelaPaciente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        new AgendarConsulta(conexao).setVisible(true);
+        new AgendarConsulta(conexao, "paciente").setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        new BuscarProntuario(conexao).setVisible(true);
+        new BuscarProntuario(conexao, "paciente", user).setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        new AgendarExame(conexao).setVisible(true);
+        new AgendarExame(conexao,"paciente").setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed

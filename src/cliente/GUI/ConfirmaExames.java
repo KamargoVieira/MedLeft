@@ -13,6 +13,27 @@ public class ConfirmaExames extends javax.swing.JFrame {
         initComponents();
         this.conexao = conexao;
     }
+    
+    public void atualizarTabela(){
+        try {
+                tabela.setVisible(true);
+                String str = "BuscarExameMarcado@"+cpfSearch.getText();
+                conexao.enviar(str);
+                String[] rows = conexao.receber().split("%");
+                Integer countRow = 0;
+                for(String registro : rows){
+                    String[] colunas = registro.split("@");
+                    Integer countCol = 0;
+                    for(String dado : colunas){
+                        tabela.setValueAt(dado, countRow, countCol);
+                        countCol++;
+                    }
+                    countRow++;
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(BuscarConsultas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -103,24 +124,7 @@ public class ConfirmaExames extends javax.swing.JFrame {
         if(cpfSearch.getText().isBlank()){
             JOptionPane.showMessageDialog(null,"Preencha todos os campos!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
         }else{
-            try {
-                tabela.setVisible(true);
-                String str = "confirmaExames@"+cpfSearch.getText();
-                conexao.enviar(str);
-                String[] rows = conexao.receber().split("%");
-                Integer countRow = 0;
-                for(String registro : rows){
-                    String[] colunas = registro.split("@");
-                    Integer countCol = 0;
-                    for(String dado : colunas){
-                        tabela.setValueAt(dado, countRow, countCol);
-                        countCol++;
-                    }
-                    countRow++;
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(BuscarConsultas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            atualizarTabela();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -129,14 +133,14 @@ public class ConfirmaExames extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Preencha o campo de busca", "Info" ,JOptionPane.INFORMATION_MESSAGE);
         }else{
             try {
-                conexao.enviar("confirmarExame@"+idexame.getText());
+                conexao.enviar("ConfirmarExame@"+idexame.getText());
                 String op = conexao.receber();
                 switch(op){
                     case "naoencontrado":
                          JOptionPane.showMessageDialog(null,"Exame nao encontrado", "Info" ,JOptionPane.INFORMATION_MESSAGE);
                         break;
                     default:
-                        tabela.setValueAt("Confirmado", Integer.parseInt(op),6);
+                        atualizarTabela();
                         break;
                 }
             } catch (IOException ex) {

@@ -1,9 +1,5 @@
-
 package servidor;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import servidor.BD.MestreDAO;
 import java.io.IOException;
 import java.net.Socket;
@@ -12,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import servidor.BD.ConsultaDAO;
 import servidor.BD.ExameDAO;
+import servidor.BD.ExameMarcadoDAO;
 import servidor.BD.FuncionarioDAO;
 import servidor.BD.MedicoDAO;
 import servidor.BD.PacienteDAO;
@@ -19,6 +16,7 @@ import servidor.BD.ProntuarioDAO;
 import servidor.entidades.Atestado;
 import servidor.entidades.Consulta;
 import servidor.entidades.Exame;
+import servidor.entidades.ExameMarcado;
 import servidor.entidades.Funcionario;
 import servidor.entidades.Medico;
 import servidor.entidades.Paciente;
@@ -36,6 +34,7 @@ public class Servidor extends Thread {
     PacienteDAO pd;
     ProntuarioDAO pdd;
     ConsultaDAO cd;
+    ExameMarcadoDAO edd;
     public Servidor(Socket cliente) throws IOException {
         this.conexao = new Conexao(cliente);
         this.md = new MedicoDAO();
@@ -95,6 +94,9 @@ public class Servidor extends Thread {
                     case "BuscarProntuario":
                         buscarProntuario(funcao);
                         break;
+                    case "BuscarProntuarioPaciente":
+                        buscarProntuarioPaciente(funcao);
+                        break;
                     case "AlterarProntuario":
                         alterarProntuario(funcao);
                         break;
@@ -124,6 +126,18 @@ public class Servidor extends Thread {
                         break;
                     case "AgendarExame":
                         agendarExame(funcao);
+                        break;
+                    case "BuscarExameMarcado":
+                        buscarExameMarcado(funcao);
+                        break;
+                    case "ConfirmarExame":
+                        confirmarExame(funcao);
+                        break;
+                    case "BuscaExamesImprimir":
+                        buscaExamesImprimir(funcao);
+                        break;
+                    case "ImprimirExame":
+                        imprimirExame(funcao);
                         break;
                 }
             } catch (IOException ex) {
@@ -340,8 +354,20 @@ public class Servidor extends Thread {
             }else{
                 conexao.enviar("naoencontrado");
             }
-        }catch(SQLException ex){
+        } catch (IOException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    //Metodo igual ao de cima, mas deve procurar pelo nome de usuario
+    private void buscarProntuarioPaciente(String[] funcao) {
+        try{
+            String dados = pdd.getProntuario(funcao[1]);
+            if(dados != null){
+                conexao.enviar(dados);
+            }else{
+                conexao.enviar("naoencontrado");
+            }
         } catch (IOException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -369,15 +395,8 @@ public class Servidor extends Thread {
         try {
             String dados = pd.getP(funcao[1]);
             Receita r = new Receita(funcao[1], funcao[2]);
-            if(dados != null){
-                String endereco = new File(".").getCanonicalPath();
-                File arquivo = new File(endereco+"/src/cliente/Receitas/"+funcao[1]+".txt");
-                FileWriter fw = new FileWriter(arquivo);
-                BufferedWriter bw = new BufferedWriter(fw); 
-                bw.write(r.toString());
-                bw.close();
-                fw.close();
-                conexao.enviar("ok");
+            if(dados != null){               
+                conexao.enviar(r.toString());
             }else{
                 conexao.enviar("naoencontrado");
             }
@@ -393,15 +412,8 @@ public class Servidor extends Thread {
         try {
             String dados = pd.getP(funcao[1]);
             Atestado a = new Atestado(funcao[1],funcao[2],funcao[3],funcao[4]);
-            if(dados != null){
-                String endereco = new File(".").getCanonicalPath();
-                File arquivo = new File(endereco+"/src/cliente/Atestados/"+funcao[1]+".txt");
-                FileWriter fw = new FileWriter(arquivo);
-                BufferedWriter bw = new BufferedWriter(fw); 
-                bw.write(a.toString());
-                bw.close();
-                fw.close();
-                conexao.enviar("ok");
+            if(dados != null){                
+                conexao.enviar(a.toString());
             }else{
                 conexao.enviar("naoencontrado");
             }
@@ -477,15 +489,12 @@ public class Servidor extends Thread {
             }else{
                 conexao.enviar("naoencontrado");
             }
-        }catch(SQLException ex){
-            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    //Criar metodo na DAO que altera o campo status para "ok" de acordo com o id da consulta que ela recebe.
-    
+    //Criar metodo na DAO que altera o campo status para "ok" de acordo com o id da consulta que ela recebe.    
     private void confirmarConsulta(String[] funcao) {
         try{
             if(cd.confirmaConsulta(funcao[1])){
@@ -495,6 +504,64 @@ public class Servidor extends Thread {
             }
         } catch (IOException ex) {
                 Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //Retirar o campo id do construtor no ExameMarcado.
+    //Retorna true se foi agendado com sucesso e retorna falso se ja tiver algum exame marcado para aquela data-horario.
+    private void agendarExame(String[] funcao) {
+        ExameMarcado e = new ExameMarcado(funcao[1], funcao[2], funcao[3], funcao[4], funcao[5], funcao[6]);
+        if(edd.adcExameMarcado(e)){
+            conexao.enviar("ok");
+        }else{
+            conexao.enviar("datahorario")
+        }
+    }
+
+    //Altera a funcao getExameMarcado para retornar todos os registros de acordo com o cpf que esta sendo enviado.
+     //Padrao de retorno "DADO1@DADO2@DADO3@DADO4%DADO1@DADO2@DADO3@DADO4
+    //Separar cada linha por % e cada dado por @
+    private void buscarExameMarcado(String[] funcao) {
+        try{
+            String dados = edd.getExameMarcado(funcao[1]);
+            conexao.enviar(dados);
+        } catch (IOException ex) {
+            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+               
+    }
+
+    //Alterar o campo de status para "confirmado" do exame de acordo com o id que é enviado
+    private void confirmarExame(String[] funcao) {
+        if(edd.confirmaExame(funcao[1])){
+            conexao.enviar("ok");
+        }else{
+            conexao.enviar("naoencontrado");
+        }
+    }
+    //Retornar todos os Exames de acordo com o cpf que é enviado
+    //Padrao de retorno "DADO1@DADO2@DADO3@DADO4%DADO1@DADO2@DADO3@DADO4
+    //Separar cada linha por % e cada dado por @
+    private void buscaExamesImprimir(String[] funcao) {
+        try{
+            String dados = edd.getExameMarcado(funcao[1]);
+            conexao.enviar(dados);
+        } catch (IOException ex) {
+            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //Retorna exame de acordo com id que é enviado.
+    private void imprimirExame(String[] funcao) {
+        try {
+            String dados = edd.getExameMarcado(funcao[1]);
+            if(dados != null){
+                conexao.enviar("ok");
+            }else{
+                conexao.enviar("naoencontrado");
             }
+        } catch (IOException ex) {
+            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }
 }

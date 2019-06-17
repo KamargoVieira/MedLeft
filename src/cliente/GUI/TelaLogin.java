@@ -63,7 +63,7 @@ public class TelaLogin extends javax.swing.JFrame {
         password.setBounds(840, 440, 300, 49);
 
         typeUser.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        typeUser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione:  Tipo de Usuario", "Medico", "Funcionario", "Paciente" }));
+        typeUser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione:  Tipo de Usuario", "Medico", "Funcionario", "Paciente", "Administrador" }));
         typeUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 typeUserActionPerformed(evt);
@@ -141,7 +141,7 @@ public class TelaLogin extends javax.swing.JFrame {
                             break;
                         case "paciente":
                             this.dispose();
-                            new TelaPaciente(conexao).setVisible(true);
+                            new TelaPaciente(conexao,user.getText()).setVisible(true);
                             break;
                         default:
                             JOptionPane.showMessageDialog(null,"Dados Incorretos ou Usuário Inexistente!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
