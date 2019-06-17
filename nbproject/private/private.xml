@@ -3,10 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/denilsondsousa/Área%20de%20Trabalho/clinica/MedLeft/src/cliente/GUI/ConfirmaExames.java</file>
-            <file>file:/home/denilsondsousa/Área%20de%20Trabalho/clinica/MedLeft/src/cliente/GUI/Agenda.java</file>
-            <file>file:/home/denilsondsousa/Área%20de%20Trabalho/clinica/MedLeft/src/cliente/GUI/ImprimirExame.java</file>
-            <file>file:/home/denilsondsousa/Área%20de%20Trabalho/clinica/MedLeft/src/cliente/GUI/BuscarConsultas.java</file>
+            <file>file:/home/kamargo/MedLeft/src/servidor/BD/ExameDAO.java</file>
+            <file>file:/home/kamargo/MedLeft/src/servidor/Servidor.java</file>
+            <file>file:/home/kamargo/MedLeft/src/servidor/BD/FuncionarioDAO.java</file>
+            <file>file:/home/kamargo/MedLeft/src/servidor/entidades/Paciente.java</file>
+            <file>file:/home/kamargo/MedLeft/src/servidor/entidades/Medico.java</file>
+            <file>file:/home/kamargo/MedLeft/src/servidor/entidades/Exame.java</file>
+            <file>file:/home/kamargo/MedLeft/src/servidor/BD/ExameMarcadoDAO.java</file>
+            <file>file:/home/kamargo/MedLeft/src/servidor/entidades/Prontuario.java</file>
         </group>
     </open-files>
 </project-private>
