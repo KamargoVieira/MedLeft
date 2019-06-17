@@ -3,6 +3,8 @@ package servidor.entidades;
 
 public class Prontuario {
     
+    private String cpf;
+    private String usuario;
     private String queixaprincipal;
     private String historicofamiliar;
     private String obs;
@@ -14,6 +16,34 @@ public class Prontuario {
     private String pressaodiastolica;
     private String obs2;
 
+    public Prontuario(String cpf, String usuario, String queixaprincipal, String historicofamiliar, String obs, String altura, String peso, String hemoglucoteste, String frequenciacardiaca, String pressaosistotica, String pressaodiastolica, String obs2) {
+        setCpf(cpf);
+        setQueixaprincipal(queixaprincipal);
+        setHistoricofamiliar(historicofamiliar);
+        setObs(obs);
+        setAltura(altura);
+        setPeso(peso);
+        setHemoglucoteste(hemoglucoteste);
+        setFrequenciacardiaca(frequenciacardiaca);
+        setPressaosistotica(pressaosistotica);
+        setPressaodiastolica(pressaodiastolica);
+        setObs2(obs2);
+    }
+    
+    /**
+     * @return the cpf
+     */
+    public String getCpf() {
+        return cpf;
+    }
+
+    /**
+     * @param cpf the cpf to set
+     */
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+    
     public String getQueixaprincipal() {
         return queixaprincipal;
     }
@@ -150,7 +180,19 @@ public class Prontuario {
     public void setObs2(String obs2) {
         this.obs2 = obs2;
     }
-    
-    
-    
+
+    /**
+     * @return the usuario
+     */
+    public String getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
 }

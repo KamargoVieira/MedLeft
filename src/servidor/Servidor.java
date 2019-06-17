@@ -367,19 +367,23 @@ public class Servidor extends Thread {
             }
         } catch (IOException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     //Metodo igual ao de cima, mas deve procurar pelo nome de usuario
     private void buscarProntuarioPaciente(String[] funcao) {
         try{
-            String dados = pdd.getProntuario(funcao[1]);
+            String dados = pdd.getP(funcao[1]);
             if(dados != null){
                 conexao.enviar(dados);
             }else{
                 conexao.enviar("naoencontrado");
             }
         } catch (IOException ex) {
+            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -388,17 +392,11 @@ public class Servidor extends Thread {
     //obs, altura, peso, hemogucloteste, temperatura, frequenciacardiaca, pressaosistotica, pressaodiastolica, obs2, cpf do Paciente.
     //Criar tambem a ProntuarioDAO.
     //Nao vai ter metodo pra adicionar entao tu vai fazer uma condição. Se ja existe um prontuario cadastrado no cpf do Paciente tu atualiza, se não, adiciona.
-    private void alterarProntuario(String[] funcao) {
+    private void alterarProntuario(String[] funcao) throws SQLException, IOException {
         Prontuario p = new Prontuario(funcao[1], funcao[2], funcao[3], funcao[4], funcao[5],funcao[6], funcao[7], funcao[8], funcao[9], funcao[10], funcao[11],funcao[12]);
-        try{
-            if(pdd.atualizaProntuario(p)){
-                conexao.enviar("ok");
-            }else{
-                conexao.enviar("jaexiste");
-            }
-        }catch(IOException ex){
-            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        pdd.atualizaProntuario(p);
+        conexao.enviar("ok");
+ 
     }
 
     // OK
