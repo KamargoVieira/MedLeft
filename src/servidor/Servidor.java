@@ -1,6 +1,5 @@
 package servidor;
 
-import servidor.BD.MestreDAO;
 import java.io.IOException;
 import java.net.Socket;
 import java.sql.SQLException;
@@ -142,17 +141,19 @@ public class Servidor extends Thread {
                 }
             } catch (IOException ex) {
                 Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }        
     }
 
-    private void telalogin(String[] funcao) {
+    private void telalogin(String[] funcao) throws IOException, SQLException {
        
         // Adicionar metodos no DAO para validar o login. Recebe usuario e senha e retorna true ou false.
         String tipoUsuario = funcao[3];
         switch(tipoUsuario){
             case "mestre":    
-                MestreDAO m = new MestreDAO();
+                FuncionarioDAO m = new FuncionarioDAO();
                 if(m.validaLogin(funcao[1], funcao[2])){                    
                     conexao.enviar("mestre");
                 }else{
@@ -211,6 +212,8 @@ public class Servidor extends Thread {
             }    
         } catch (IOException ex) {
                 Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -242,6 +245,8 @@ public class Servidor extends Thread {
             }
         } catch (IOException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -255,6 +260,8 @@ public class Servidor extends Thread {
                 conexao.enviar("jaexiste");
             }
         }catch(IOException ex){
+            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -304,7 +311,7 @@ public class Servidor extends Thread {
     //Alterar a adicionaExame na ExameDAO para retornar true se cadastrou ou falso caso já existe exame com nome registrado
     //Alterar também pra receber só o nome(tipo) no BD
     private void adicionaExame(String[] funcao) {
-        Exame e = new Exame(funcao[1]);
+        Exame e = new Exame(funcao[1], Double.parseDouble(funcao[2]));
         try{
             if(ed.adcExame(e)){
                 conexao.enviar("ok");
@@ -514,7 +521,7 @@ public class Servidor extends Thread {
         if(edd.adcExameMarcado(e)){
             conexao.enviar("ok");
         }else{
-            conexao.enviar("datahorario")
+            conexao.enviar("datahorario");
         }
     }
 

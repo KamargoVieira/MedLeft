@@ -47,7 +47,8 @@ public class ExameDAO {
         ResultSet result  = preparedStatement.executeQuery();
         
         Exame e;
-        e = new Exame(result.getString("tipo"), result.getInt("id"), result.getDouble("valor"));
+        e = new Exame(result.getString("tipo"), result.getDouble("valor"));
+        e.setId(id);
         
         preparedStatement.close();
         this.connection.close();
