@@ -42,6 +42,7 @@ public class Servidor extends Thread {
         this.pd = new PacienteDAO();
         this.pdd = new ProntuarioDAO();
         this.cd = new ConsultaDAO();
+        this.edd = new  ExameMarcadoDAO();
     }
 
     @Override
@@ -418,12 +419,14 @@ public class Servidor extends Thread {
             conexao.enviar(tabela);
         } catch (IOException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     //Altera o campo "Atendido" da consulta para "ok". Recebe o id da consulta. Retorna true se encontrou e alterou
     private void consultaAtendida(String[] funcao) throws SQLException, IOException {
-        if(cd.alteraAtendimento(funcao[1])){
+        if(cd.alteraAtendimento(Integer.parseInt(funcao[1]))){
             conexao.enviar("ok");
         }else{
             conexao.enviar("naoencontrado");
@@ -466,7 +469,7 @@ public class Servidor extends Thread {
     //Separar cada linha por % e cada dado por @
     private void buscarConsulta(String[] funcao) {
         try{
-            String dados = cd.getC(funcao[1]);
+            String dados = cd.getC(Integer.parseInt(funcao[1]));
             if(dados != null){
                 conexao.enviar(dados);
             }else{
@@ -474,13 +477,15 @@ public class Servidor extends Thread {
             }
         } catch (IOException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     //Criar metodo na DAO que altera o campo status para "ok" de acordo com o id da consulta que ela recebe.    
     private void confirmarConsulta(String[] funcao) throws SQLException {
         try{
-            if(cd.confirmaConsulta(funcao[1])){
+            if(cd.confirmaConsulta(Integer.parseInt(funcao[1]))){
                 conexao.enviar("ok");
             }else{
                 conexao.enviar("naoencontrado");
@@ -504,9 +509,10 @@ public class Servidor extends Thread {
     //Altera a funcao getExameMarcado para retornar todos os registros de acordo com o cpf que esta sendo enviado.
      //Padrao de retorno "DADO1@DADO2@DADO3@DADO4%DADO1@DADO2@DADO3@DADO4
     //Separar cada linha por % e cada dado por @
-    private void buscarExameMarcado(String[] funcao) {
+    private void buscarExameMarcado(String[] funcao) throws SQLException {
         try{
-            String dados = edd.getExameMarcado(funcao[1]);
+            String dados;
+            dados = edd.getEM(Integer.parseInt(funcao[1]));
             conexao.enviar(dados);
         } catch (IOException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
@@ -516,7 +522,7 @@ public class Servidor extends Thread {
 
     //Alterar o campo de status para "confirmado" do exame de acordo com o id que é enviado
     private void confirmarExame(String[] funcao) throws IOException, SQLException {
-        if(edd.confirmaExame(funcao[1])){
+        if(edd.confirmaExame(Integer.parseInt(funcao[1]))){
             conexao.enviar("ok");
         }else{
             conexao.enviar("naoencontrado");
@@ -525,9 +531,9 @@ public class Servidor extends Thread {
     //Retornar todos os Exames de acordo com o cpf que é enviado
     //Padrao de retorno "DADO1@DADO2@DADO3@DADO4%DADO1@DADO2@DADO3@DADO4
     //Separar cada linha por % e cada dado por @
-    private void buscaExamesImprimir(String[] funcao) {
+    private void buscaExamesImprimir(String[] funcao) throws SQLException {
         try{
-            String dados = edd.getExameMarcado(funcao[1]);
+            String dados = edd.getEM(Integer.parseInt(funcao[1]));
             conexao.enviar(dados);
         } catch (IOException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
@@ -537,7 +543,7 @@ public class Servidor extends Thread {
     //Retorna exame de acordo com id que é enviado.
     private void imprimirExame(String[] funcao) throws SQLException {
         try {            
-            if( edd.getEM(funcao[1])){
+            if(edd.buscaExame(Integer.parseInt(funcao[1]))){
                 conexao.enviar("ok");
             }else{
                 conexao.enviar("naoencontrado");

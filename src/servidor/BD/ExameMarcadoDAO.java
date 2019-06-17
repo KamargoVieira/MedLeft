@@ -5,7 +5,6 @@
  */
 package servidor.BD;
 
-
 import java.sql.*;
 import servidor.entidades.ExameMarcado;
 
@@ -14,24 +13,24 @@ import servidor.entidades.ExameMarcado;
  * @author kamargo
  */
 public class ExameMarcadoDAO {
-    
+
     Connection connection;
-    
-    public boolean adcExameMarcado(ExameMarcado eM) throws SQLException{
-        
+
+    public boolean adcExameMarcado(ExameMarcado eM) throws SQLException {
+
         this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
-        
-        if(validaExameMarcado(eM.getData(), eM.getHorario())){
+
+        if (validaExameMarcado(eM.getData(), eM.getHorario())) {
             return false;
-        }else{
+        } else {
             String sqlInsert = "INSERT INTO ExameMacado ("
-                + "cpf,"
-                + "telefone,"
-                + "data,"
-                + "horario,"
-                + "observacoes,"
-                + "tipo"
-                + ") VALUES(?,?,?,?,?,?);";
+                    + "cpf,"
+                    + "telefone,"
+                    + "data,"
+                    + "horario,"
+                    + "observacoes,"
+                    + "tipo"
+                    + ") VALUES(?,?,?,?,?,?);";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlInsert);
             preparedStatement.setString(1, eM.getCpf());
@@ -48,75 +47,71 @@ public class ExameMarcadoDAO {
             connection.close();
             return true;
         }
-        
-        
-    }    
-    
-    public boolean validaExameMarcado(String data, String horario) throws SQLException{
-        
+
+    }
+
+    public boolean validaExameMarcado(String data, String horario) throws SQLException {
+
         this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
-            
+
         String sql = "SELECT * FROM ExameMarcado WHERE horario = ? and data = ?;";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, horario);
         preparedStatement.setString(2, data);
-        
+
         ResultSet result = preparedStatement.executeQuery();
-        
+
         preparedStatement.close();
         connection.close();
-        
-        if(result == null){
+
+        if (result == null) {
             return false;
-        }else{
+        } else {
             return true;
         }
-        
-    }
-    
-    public ExameMarcado getExameMarcado(Integer id) throws SQLException{
-        
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
-        
-        String sql = "SELECT * FROM ExameMarcado WHERE id = ?";
-        
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1, id);
-        
-        ResultSet result  = preparedStatement.executeQuery();
-        
-        ExameMarcado eM;
-        eM = new ExameMarcado(result.getString("cpf"), result.getString("telefone"), result.getString("data"), result.getString("horario"), result.getString("observacoes"), result.getString("tipo"));
-        
-        preparedStatement.close();
-        connection.close();
-        
-        return eM;
-    }
-    
-    public boolean getEM(String string) throws SQLException{
-        
-        if(buscaExameID(string)){
-            return false;
-        }else{
-             this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
-        
-        String sql = "SELECT * FROM ExameMarcado WHERE id = ?";
-        
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, string);
-        
-        ResultSet result  = preparedStatement.executeQuery();
-        
-        preparedStatement.close();
-        connection.close();
-        
-        return true;
-        }
+
     }
 
-    public boolean confirmaExame(String string) throws SQLException {
-        if (buscaExame(string)) {
+    public ExameMarcado getExameMarcado(Integer id) throws SQLException {
+
+        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+
+        String sql = "SELECT * FROM ExameMarcado WHERE id = ?";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, id);
+
+        ResultSet result = preparedStatement.executeQuery();
+
+        ExameMarcado eM;
+        eM = new ExameMarcado(result.getString("cpf"), result.getString("telefone"), result.getString("data"), result.getString("horario"), result.getString("observacoes"), result.getString("tipo"));
+
+        preparedStatement.close();
+        connection.close();
+
+        return eM;
+    }
+
+    public String getEM(Integer id) throws SQLException {
+
+        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+
+        String sql = "SELECT * FROM ExameMarcado WHERE id = ?";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, id);
+
+        ResultSet result = preparedStatement.executeQuery();
+
+        preparedStatement.close();
+        connection.close();
+
+        return result.getString("cpf")+"@"+result.getString("telefone")+"@"+result.getString("data")+"@"+result.getString("horario")+"@"+result.getString("observacoes")+"@"+result.getString("tipo");
+    
+    }
+
+    public boolean confirmaExame(Integer id) throws SQLException {
+        if (buscaExame(id)) {
             return false;
         } else {
             this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
@@ -127,7 +122,7 @@ public class ExameMarcadoDAO {
             
             PreparedStatement preparedStatement = connection.prepareStatement(sqlInsert);
             preparedStatement.setString(1, "confirmado");
-            preparedStatement.setString(2, string);
+            preparedStatement.setInt(2, id);
             
             preparedStatement.executeUpdate();
 
@@ -137,13 +132,14 @@ public class ExameMarcadoDAO {
             return true;
         }
     }
-    private boolean buscaExame(String string) throws SQLException {
+
+    public boolean buscaExame(Integer id) throws SQLException {
         
         this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
             
-        String sql = "SELECT * FROM ExameMarcado WHERE cpf = ?;";
+        String sql = "SELECT * FROM ExameMarcado WHERE id = ?;";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, string); 
+        preparedStatement.setInt(1, id); 
         
         ResultSet result = preparedStatement.executeQuery();
         
@@ -158,12 +154,12 @@ public class ExameMarcadoDAO {
         
     }
     
-    private boolean buscaExameID(String string) throws SQLException{
+    private boolean buscaExameID(Integer id) throws SQLException{
         this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
             
         String sql = "SELECT * FROM ExameMarcado WHERE id = ?;";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, string); 
+        preparedStatement.setInt(1, id); 
         
         ResultSet result = preparedStatement.executeQuery();
         
