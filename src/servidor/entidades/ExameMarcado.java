@@ -13,17 +13,14 @@ public class ExameMarcado extends Dados {
     
     private String tipo;
 
-    public ExameMarcado(String cpf, int id, String telefone, String data, String horario, String observacoes, String tipo) {
+    public ExameMarcado(String cpf,String telefone, String data, String horario, String observacoes, String tipo) {
         setCpf(cpf);
-        setId(id);
         setTelefone(telefone);
         setData(data);
         setHorario(horario);
         setObservacoes(observacoes);
         setTipo(tipo);
-    }
-    
-    
+    } 
 
     /**
      * @return the tipo
