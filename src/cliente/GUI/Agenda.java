@@ -82,7 +82,7 @@ public class Agenda extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabela);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 50, 770, 280);
+        jScrollPane1.setBounds(30, 50, 770, 280);
 
         jButton1.setText("Voltar");
         getContentPane().add(jButton1);
