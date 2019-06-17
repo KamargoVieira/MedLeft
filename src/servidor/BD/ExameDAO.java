@@ -1,17 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servidor.BD;
 
 import java.sql.*;
 import servidor.entidades.Exame;
 
-/**
- *
- * @author kamargo
- */
 public class ExameDAO {
     Connection connection;
     
@@ -59,10 +50,10 @@ public class ExameDAO {
 
         if (result == null) {
             return false;
-        } else if (result.getString("tipo").equals(tipo)) {
+        } else{
             return true;
         }
-        return false;
+
     }
     
     public Exame getExame(Integer id) throws SQLException{

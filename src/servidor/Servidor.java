@@ -139,9 +139,7 @@ public class Servidor extends Thread {
                         imprimirExame(funcao);
                         break;
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
+            } catch (IOException | SQLException ex) {
                 Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }        
@@ -195,9 +193,7 @@ public class Servidor extends Thread {
             }else{
                 conexao.enviar("jaexiste");
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (SQLException | IOException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -210,10 +206,8 @@ public class Servidor extends Thread {
             }else{
                 conexao.enviar("naoencontrado");
             }    
-        } catch (IOException ex) {
+        } catch (IOException | SQLException ex) {
                 Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -226,9 +220,7 @@ public class Servidor extends Thread {
             }else{
                 conexao.enviar("naoencontrado");
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (SQLException | IOException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -243,9 +235,7 @@ public class Servidor extends Thread {
             }else{
                 conexao.enviar("userjaexiste");
             }
-        } catch (IOException ex) {
-            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (IOException | SQLException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -259,9 +249,7 @@ public class Servidor extends Thread {
             }else{
                 conexao.enviar("jaexiste");
             }
-        }catch(IOException ex){
-            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        }catch(IOException | SQLException ex){
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -274,10 +262,8 @@ public class Servidor extends Thread {
             }else{
                 conexao.enviar("naoencontrado");
             }    
-        } catch (IOException ex) {
+        } catch (IOException | SQLException ex) {
                 Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }  
     }
     
@@ -290,9 +276,7 @@ public class Servidor extends Thread {
             }else{
                 conexao.enviar("naoencontrado");
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (SQLException | IOException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -305,9 +289,7 @@ public class Servidor extends Thread {
             }else{
                 conexao.enviar("jaexiste");
             }
-        }catch(IOException ex){
-            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        }catch(IOException | SQLException ex){
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -350,9 +332,7 @@ public class Servidor extends Thread {
             }else{
                 conexao.enviar("naoencontrado");
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (SQLException | IOException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -411,9 +391,7 @@ public class Servidor extends Thread {
             }else{
                 conexao.enviar("naoencontrado");
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (SQLException | IOException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }        
     }
@@ -428,9 +406,7 @@ public class Servidor extends Thread {
             }else{
                 conexao.enviar("naoencontrado");
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (SQLException | IOException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
@@ -448,7 +424,7 @@ public class Servidor extends Thread {
     }
 
     //Altera o campo "Atendido" da consulta para "ok". Recebe o id da consulta. Retorna true se encontrou e alterou
-    private void consultaAtendida(String[] funcao) {
+    private void consultaAtendida(String[] funcao) throws SQLException, IOException {
         if(cd.alteraAtendimento(funcao[1])){
             conexao.enviar("ok");
         }else{
@@ -467,16 +443,14 @@ public class Servidor extends Thread {
             }else{
                 conexao.enviar("jaexiste");
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (SQLException | IOException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     //Tira o campo id do construtor de consulta e coloca nessa ordem: especialista, cpf, telefone, data, horario, obs, status
     // Retorna true se cadastrar e retorna false caso ja tenha um registro cadastrado na mesma data e hora.
-    private void agendarConsulta(String[] funcao) {
+    private void agendarConsulta(String[] funcao) throws SQLException {
         Consulta c = new Consulta(funcao[1], funcao[2], funcao[3], funcao[4], funcao[5], funcao[6], funcao[7]);
         try{
             if(cd.adcConsulta(c)){
@@ -506,7 +480,7 @@ public class Servidor extends Thread {
     }
 
     //Criar metodo na DAO que altera o campo status para "ok" de acordo com o id da consulta que ela recebe.    
-    private void confirmarConsulta(String[] funcao) {
+    private void confirmarConsulta(String[] funcao) throws SQLException {
         try{
             if(cd.confirmaConsulta(funcao[1])){
                 conexao.enviar("ok");
@@ -520,7 +494,7 @@ public class Servidor extends Thread {
 
     //Retirar o campo id do construtor no ExameMarcado.
     //Retorna true se foi agendado com sucesso e retorna falso se ja tiver algum exame marcado para aquela data-horario.
-    private void agendarExame(String[] funcao) {
+    private void agendarExame(String[] funcao) throws SQLException, IOException {
         ExameMarcado e = new ExameMarcado(funcao[1], funcao[2], funcao[3], funcao[4], funcao[5], funcao[6]);
         if(edd.adcExameMarcado(e)){
             conexao.enviar("ok");
@@ -543,7 +517,7 @@ public class Servidor extends Thread {
     }
 
     //Alterar o campo de status para "confirmado" do exame de acordo com o id que é enviado
-    private void confirmarExame(String[] funcao) {
+    private void confirmarExame(String[] funcao) throws IOException, SQLException {
         if(edd.confirmaExame(funcao[1])){
             conexao.enviar("ok");
         }else{
@@ -563,10 +537,9 @@ public class Servidor extends Thread {
     }
 
     //Retorna exame de acordo com id que é enviado.
-    private void imprimirExame(String[] funcao) {
-        try {
-            String dados = edd.getExameMarcado(funcao[1]);
-            if(dados != null){
+    private void imprimirExame(String[] funcao) throws SQLException {
+        try {            
+            if( edd.getEM(funcao[1])){
                 conexao.enviar("ok");
             }else{
                 conexao.enviar("naoencontrado");

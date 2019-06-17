@@ -17,6 +17,7 @@ public class Dados {
     private String data;
     private String horario;
     private String observacoes;
+    private String status;
 
     /**
      * @return the cpf
@@ -100,6 +101,20 @@ public class Dados {
      */
     public void setObservacoes(String observacoes) {
         this.observacoes = observacoes;
+    }
+
+    /**
+     * @return the status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(String status) {
+        this.status = status;
     }
     
     

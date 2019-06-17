@@ -4,15 +4,14 @@ public class Consulta extends Dados {
     
     private String especialista;
 
-    public Consulta(String cpf, int id, String telefone, String data, String horrio, String observacoes, String especialista) {
+    public Consulta(String especialista, String cpf, String telefone, String data, String horario, String observacoes, String status) {
         setCpf(cpf);
-        setId(id);
         setTelefone(telefone);
         setData(data);
-        setHorario(horrio);
+        setHorario(horario);
         setObservacoes(observacoes);
         setEspecialista(especialista);
- 
+        setStatus(status); 
     }
 
     /**

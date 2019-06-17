@@ -152,7 +152,7 @@ public class ImprimirExame extends javax.swing.JFrame {
                         bw.write("Exame aqui");
                         bw.close();
                         fw.close();
-                         break;
+                        break;
                 }
             } catch (IOException ex) {
                 Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
