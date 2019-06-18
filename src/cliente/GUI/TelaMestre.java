@@ -35,7 +35,8 @@ public class TelaMestre extends javax.swing.JFrame {
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Tela Mestre");
         getContentPane().setLayout(null);
 
         jButton10.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N

@@ -107,7 +107,8 @@ public class BuscarProntuario extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Buscar Prontuario");
         getContentPane().setLayout(null);
 
         jButton1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N

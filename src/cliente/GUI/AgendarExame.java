@@ -39,7 +39,8 @@ public class AgendarExame extends javax.swing.JFrame {
         jToggleButton1 = new javax.swing.JToggleButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("AgendarExame");
         getContentPane().setLayout(null);
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
