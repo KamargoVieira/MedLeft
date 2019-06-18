@@ -21,20 +21,22 @@ public class AdicionarExame extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         nameExame = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        valor = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Adicionar Exame");
         getContentPane().setLayout(null);
 
         jLabel7.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel7.setText("Nome do Exame:");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(90, 70, 160, 21);
+        jLabel7.setBounds(90, 30, 160, 21);
 
         nameExame.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         getContentPane().add(nameExame);
-        nameExame.setBounds(90, 100, 270, 50);
+        nameExame.setBounds(90, 60, 270, 50);
 
         jButton1.setText("Adicionar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -43,13 +45,22 @@ public class AdicionarExame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(150, 170, 110, 50);
+        jButton1.setBounds(170, 230, 110, 50);
+
+        jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabel2.setText("Valor:");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(90, 120, 48, 21);
+
+        valor.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        getContentPane().add(valor);
+        valor.setBounds(90, 150, 270, 50);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cliente/GUI/imagens/fundo.png"))); // NOI18N
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 450, 270);
+        jLabel1.setBounds(0, 0, 450, 310);
 
-        setSize(new java.awt.Dimension(439, 297));
+        setSize(new java.awt.Dimension(439, 339));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -58,7 +69,7 @@ public class AdicionarExame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Informe o nome do Exame a ser adicionado!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
         }else{
             try {
-                String str = "AdicionaExame@" + nameExame.getText();
+                String str = "AdicionaExame@" + nameExame.getText()+"@"+valor.getText();
                 conexao.enviar(str);
                 String op = conexao.receber();
                 
@@ -80,7 +91,9 @@ public class AdicionarExame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField nameExame;
+    private javax.swing.JTextField valor;
     // End of variables declaration//GEN-END:variables
 }

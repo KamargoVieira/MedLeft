@@ -20,13 +20,13 @@ public class TelaLogin extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        user = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
         password = new javax.swing.JPasswordField();
         typeUser = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        user = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -39,20 +39,6 @@ public class TelaLogin extends javax.swing.JFrame {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(760, 390, 66, 21);
 
-        try {
-            user.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("***************")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        user.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        user.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userActionPerformed(evt);
-            }
-        });
-        getContentPane().add(user);
-        user.setBounds(840, 380, 300, 50);
-
         jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel2.setText("Senha:");
         getContentPane().add(jLabel2);
@@ -63,7 +49,7 @@ public class TelaLogin extends javax.swing.JFrame {
         password.setBounds(840, 440, 300, 49);
 
         typeUser.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        typeUser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione:  Tipo de Usuario", "Medico", "Funcionario", "Paciente", "Administrador" }));
+        typeUser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione:  Tipo de Usuario", "Medico", "Funcionario", "Paciente", "Mestre" }));
         typeUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 typeUserActionPerformed(evt);
@@ -96,6 +82,10 @@ public class TelaLogin extends javax.swing.JFrame {
         getContentPane().add(jLabel3);
         jLabel3.setBounds(90, 120, 610, 510);
 
+        user.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        getContentPane().add(user);
+        user.setBounds(840, 380, 300, 50);
+
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cliente/GUI/imagens/fundo.png"))); // NOI18N
         jLabel4.setText("jLabel4");
         getContentPane().add(jLabel4);
@@ -108,10 +98,6 @@ public class TelaLogin extends javax.swing.JFrame {
     private void typeUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeUserActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_typeUserActionPerformed
-
-    private void userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_userActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         System.exit(0);
@@ -163,6 +149,6 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPasswordField password;
     private javax.swing.JComboBox<String> typeUser;
-    private javax.swing.JFormattedTextField user;
+    private javax.swing.JTextField user;
     // End of variables declaration//GEN-END:variables
 }

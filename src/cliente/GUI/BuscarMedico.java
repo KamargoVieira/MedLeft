@@ -27,9 +27,10 @@ public class BuscarMedico extends javax.swing.JFrame {
         nome = new javax.swing.JLabel();
         cpf = new javax.swing.JLabel();
         especialidade = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Buscar Medico");
         getContentPane().setLayout(null);
 
@@ -72,11 +73,20 @@ public class BuscarMedico extends javax.swing.JFrame {
 
         cpf.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         getContentPane().add(cpf);
-        cpf.setBounds(300, 280, 240, 0);
+        cpf.setBounds(300, 280, 240, 20);
 
         especialidade.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         getContentPane().add(especialidade);
-        especialidade.setBounds(300, 320, 240, 0);
+        especialidade.setBounds(300, 320, 240, 20);
+
+        jButton2.setText("Voltar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2);
+        jButton2.setBounds(960, 370, 100, 50);
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cliente/GUI/imagens/fundo.png"))); // NOI18N
@@ -112,11 +122,16 @@ public class BuscarMedico extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cpf;
     private javax.swing.JTextField cpfSearch;
     private javax.swing.JLabel especialidade;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;

@@ -15,43 +15,26 @@ import servidor.entidades.Medico;
 public class MedicoDAO {
 
     Connection connection;
+    Statement stm;
 
-    public boolean adcMedico(Medico m) throws SQLException {
+    public boolean adcMedico(Medico m) throws SQLException, ClassNotFoundException {
 
         if (validaLogin(m.getUsuario())) {
             return false;
         } else {
-
-            this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
-
-            String sqlInsert = "INSERT INTO Medico ("
-                    + "nome,"
-                    + "cpf,"
-                    + "usuario,"
-                    + "senha,"
-                    + "especialidade"
-                    + ") VALUES(?,?,?,?,?);";
-
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlInsert);
-            preparedStatement.setString(1, m.getNome());
-            preparedStatement.setString(2, m.getCpf());
-            preparedStatement.setString(3, m.getUsuario());
-            preparedStatement.setString(4, m.getSenha());
-            preparedStatement.setString(5, m.getEspecialidade());
-
-            preparedStatement.executeUpdate();
-
-            preparedStatement.close();
-
+            this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
+            this.stm = connection.createStatement(); 
+            String sql = "INSERT INTO Medico (nome,cpf,usuario,senha,especialidade) VALUES('"+m.getNome()+"','"+m.getCpf()+"','"+m.getUsuario()+"','"+m.getSenha()+"','"+m.getEspecialidade()+"')";
+            stm.executeUpdate(sql);            
+            stm.close();
             connection.close();
-
             return true;
         }
     }
 
     public Medico getMedico(String cpf) throws SQLException {
 
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
 
         String sql = "SELECT * FROM Medico WHERE cpf = ?;";
 
@@ -71,29 +54,29 @@ public class MedicoDAO {
 
     public String getM(String cpf) throws SQLException {
 
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
+        this.stm = connection.createStatement();
+        
+        String sql = "SELECT * FROM Medico WHERE cpf = '"+cpf+"'";
+        ResultSet result = stm.executeQuery(sql);
 
-        String sql = "SELECT * FROM Medico WHERE cpf = ?;";
-
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, cpf);
-
-        ResultSet result = preparedStatement.executeQuery();
-
-        preparedStatement.close();
-
-        connection.close();
-
-        if (result == null) {
-            return null;
-        } else {
-            return result.getString("nome") + "@" + result.getString("cpf") + "@" + result.getString("usuario") + "@" + result.getString("senha") + "@" + result.getString("especialidade");
+        while(result.next()){
+            if(result.getString("cpf").equals(cpf)){
+                String str = result.getString("nome") + "@" + result.getString("cpf") + "@" + result.getString("usuario") + "@" + result.getString("senha") + "@" + result.getString("especialidade");
+                stm.close();
+                connection.close();
+                return str;
+            }
         }
+        stm.close();
+        connection.close();
+        return null;
+
     }
 
     public boolean validaLogin(String usuario, String senha) throws SQLException {
 
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
 
         String sql = "SELECT * FROM Medico WHERE usuario = ?;";
 
@@ -116,79 +99,83 @@ public class MedicoDAO {
 
     public boolean validaLogin(String usuario) throws SQLException {
 
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
+        this.stm = connection.createStatement();
+        
+        String sql = "SELECT * FROM Medico WHERE usuario = '"+usuario+"'";       
 
-        String sql = "SELECT * FROM Medico WHERE usuario = ?;";
-
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, usuario);
-
-        ResultSet result = preparedStatement.executeQuery();
-
-        preparedStatement.close();
-
-        connection.close();
-
-        if (result == null) {
-            return false;
-        } else if (result.getString("usuario").equals(usuario)) {
-            return true;
+        ResultSet result = stm.executeQuery(sql);
+        ResultSet rs = stm.executeQuery(sql);
+        while(rs.next()){
+            if(rs.getString("usuario").equals(usuario)){
+                stm.close();
+                connection.close();
+                return true;
+            }
         }
+        stm.close();
+        connection.close();
+        return false;
+    }
+    
+    public boolean alterarMedicoAux(String usuario, String cpf) throws SQLException{
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
+        this.stm = connection.createStatement();
+        
+        String sql = "SELECT * FROM Medico WHERE usuario = '"+usuario+"'";       
+
+        ResultSet result = stm.executeQuery(sql);
+        ResultSet rs = stm.executeQuery(sql);
+        while(rs.next()){
+            if(rs.getString("usuario").equals(usuario) && !(rs.getString("cpf").equals(cpf))){
+                stm.close();
+                connection.close();
+                return true;
+            }
+        }
+        stm.close();
+        connection.close();
         return false;
     }
 
     public boolean removeMedico(String cpf) throws SQLException {
 
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
+        this.stm = connection.createStatement();
 
-        String sql = "DELETE FROM Cliente WHERE cpf = ?;";
-
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, cpf);
-
-        int linhasDelet = preparedStatement.executeUpdate();
-
-        preparedStatement.close();
-
-        connection.close();
+        String sql = "DELETE FROM Medico WHERE cpf = '"+cpf+"'";
+        int linhasDelet = stm.executeUpdate(sql);        
 
         if (linhasDelet == 1) {
+            stm.close();
+            connection.close();
             return true;
         } else {
+            stm.close();
+            connection.close();
             return false;
         }
-
     }
 
     public boolean atualizaMedico(Medico m) throws SQLException {
 
-        if (validaLogin(m.getUsuario())) {
+        if (alterarMedicoAux(m.getUsuario(), m.getSenha())) {
             return false;
-        } else {
-            
-            this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+        } else {            
+            this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
+            this.stm = connection.createStatement();
 
-            String sqlInsert = "UPDATE Medico SET "
-                    + "nome = ?,"
-                    + "usuario = ?,"
-                    + "senha = ?,"
-                    + "especialidade = ? "
-                    + "WHERE cpf = ?;";
-
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlInsert);
-            preparedStatement.setString(1, m.getNome());
-            preparedStatement.setString(2, m.getUsuario());
-            preparedStatement.setString(3, m.getSenha());
-            preparedStatement.setString(4, m.getEspecialidade());
-            preparedStatement.setString(5, m.getCpf());
-
-            preparedStatement.executeUpdate();
-
-            preparedStatement.close();
-
-            connection.close();
-
-            return true;
+            String sql = "UPDATE Medico SET nome = '"+m.getNome()+"', usuario = '"+m.getUsuario()+"', senha = '"+m.getSenha()+"', especialidade = '"+m.getEspecialidade()+"' WHERE cpf = '"+m.getCpf()+"'";
+            int linhasatualizadas = stm.executeUpdate(sql);
+            if (linhasatualizadas == 1) {
+                stm.close();
+                connection.close();
+                return true;
+            } else {
+                stm.close();
+                connection.close();
+                return false;
+            }           
         }
 
     }

@@ -11,6 +11,7 @@ public class BuscarFuncionario extends javax.swing.JFrame {
     Conexao conexao;
     public BuscarFuncionario(Conexao conexao) {
         initComponents();
+        this.conexao = conexao;
     }
 
     @SuppressWarnings("unchecked")
@@ -26,7 +27,8 @@ public class BuscarFuncionario extends javax.swing.JFrame {
         cpf = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Buscar Funcionário");
         getContentPane().setLayout(null);
 
         name.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
@@ -59,18 +61,19 @@ public class BuscarFuncionario extends javax.swing.JFrame {
 
         nome.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         getContentPane().add(nome);
-        nome.setBounds(180, 240, 460, 0);
+        nome.setBounds(180, 240, 460, 30);
 
         cpf.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         getContentPane().add(cpf);
-        cpf.setBounds(180, 280, 370, 0);
+        cpf.setBounds(180, 280, 370, 30);
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cliente/GUI/imagens/fundo.png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, -10, 1220, 770);
 
-        setBounds(0, 0, 1230, 474);
+        setSize(new java.awt.Dimension(1214, 474));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

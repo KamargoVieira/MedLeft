@@ -18,7 +18,7 @@ public class ProntuarioDAO {
 
     public String getProntuario(String cpf) throws SQLException {
 
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
 
         String sql = "SELECT * FROM Prontuario WHERE cpf = ?";
 
@@ -40,7 +40,7 @@ public class ProntuarioDAO {
 
     public String getP(String usuario) throws SQLException {
 
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
 
         String sql = "SELECT * FROM Prontuario WHERE usuario = ?";
 
@@ -63,7 +63,7 @@ public class ProntuarioDAO {
     public void atualizaProntuario(Prontuario p) throws SQLException {
         if (verificaProntuario(p.getCpf())) {
             
-            this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+            this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
 
             String sqlInsert = "UPDATE Prontuario SET "
                     + "usuario = ?,"
@@ -101,7 +101,7 @@ public class ProntuarioDAO {
             
         } else {
             
-            this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+            this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
 
             String sqlInsert = "INSERT INTO Prontuario ("
                     + "cpf,"
@@ -143,7 +143,7 @@ public class ProntuarioDAO {
 
     private boolean verificaProntuario(String cpf) throws SQLException {
 
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
 
         String sql = "SELECT * FROM Prontuario WHERE cpf = ?;";
 

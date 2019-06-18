@@ -37,7 +37,7 @@ public class AlterarPaciente extends javax.swing.JFrame {
         user.setVisible(false);
         userj.setVisible(false);
         password.setVisible(false);
-        password.setVisible(false);        
+        passwordj.setVisible(false);        
     }
 
 
@@ -78,7 +78,8 @@ public class AlterarPaciente extends javax.swing.JFrame {
 
         jPasswordField1.setText("jPasswordField1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Alterar Paciente");
         getContentPane().setLayout(null);
 
         nome.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
@@ -211,6 +212,8 @@ public class AlterarPaciente extends javax.swing.JFrame {
         jLabel12.setText("CPF do Paciente:");
         getContentPane().add(jLabel12);
         jLabel12.setBounds(40, 60, 140, 21);
+
+        cpfSearch.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         getContentPane().add(cpfSearch);
         cpfSearch.setBounds(200, 50, 300, 50);
 
@@ -249,11 +252,11 @@ public class AlterarPaciente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_nomeActionPerformed
 
     private void enderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enderecoActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_enderecoActionPerformed
 
     private void municipioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_municipioActionPerformed
@@ -295,7 +298,7 @@ public class AlterarPaciente extends javax.swing.JFrame {
                 case "ok":
                     JOptionPane.showMessageDialog(null,"Paciente alterado com sucesso!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
                     break;
-                case "userjaexiste":
+                case "jaexiste":
                     JOptionPane.showMessageDialog(null,"Nome de usuario informado já existe. Tente outro!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
                     user.setText("");
                     break;
@@ -343,7 +346,7 @@ public class AlterarPaciente extends javax.swing.JFrame {
                         user.setVisible(true);
                         userj.setVisible(true);
                         password.setVisible(true);
-                        password.setVisible(true);
+                        passwordj.setVisible(true);
                         String[] dados = op.split("@");
                         nome.setText(dados[0]);
                         this.nomeAux = dados[0];

@@ -4,7 +4,9 @@ import java.sql.*;
 import servidor.entidades.Exame;
 
 public class ExameDAO {
+    
     Connection connection;
+    Statement stm;
     
     public boolean adcExame(Exame e) throws SQLException{
         
@@ -12,21 +14,13 @@ public class ExameDAO {
             return false;
         } else {
             
-            this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+            this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
+            this.stm = connection.createStatement();
         
-            String sqlInsert = "INSERT INTO Exame ("
-                    + "tipo,"
-                    + "valor"
-                    + ") VALUES(?,?);";
-
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlInsert);
-            preparedStatement.setString(1, e.getTipo());
-            preparedStatement.setDouble(2, e.getValor());
-
-            preparedStatement.executeUpdate();
-
-            preparedStatement.close();
-
+            String sql = "INSERT INTO Exame (tipo,valor)VALUES('"+e.getTipo()+"','"+e.getValor()+"')";
+            stm.executeUpdate(sql);
+            
+            this.stm.close();
             this.connection.close();
             
             return true;
@@ -35,30 +29,26 @@ public class ExameDAO {
     
     public boolean validaExame(String tipo) throws SQLException {
 
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
+        this.stm = connection.createStatement();
+        
+        String sql = "SELECT * FROM Exame WHERE tipo = '"+tipo+"'";
 
-        String sql = "SELECT * FROM Exame WHERE tipo = ?;";
-
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, tipo);
-
-        ResultSet result = preparedStatement.executeQuery();
-
-        preparedStatement.close();
-
-        connection.close();
-
-        if (result == null) {
-            return false;
-        } else{
-            return true;
+        ResultSet result = stm.executeQuery(sql);
+        ResultSet rs = stm.executeQuery(sql);
+        while(rs.next()){
+            if(rs.getString("tipo").equals(tipo)){
+                stm.close();
+                connection.close();
+                return true;
+            }
         }
-
+        return false;
     }
     
     public Exame getExame(Integer id) throws SQLException{
         
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
         
         String sql = "SELECT * FROM Exame WHERE id = ?;";
         
@@ -80,7 +70,7 @@ public class ExameDAO {
     
     public String getE(Integer id) throws SQLException{
         
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
         
         String sql = "SELECT * FROM Exame WHERE id = ?;";
         
@@ -97,22 +87,20 @@ public class ExameDAO {
 
     public boolean removeExame(String tipo) throws SQLException {
         
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
-
-        String sql = "DELETE FROM Exame WHERE tipo = ?;";
-
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, tipo);
-
-        int linhasDelet = preparedStatement.executeUpdate();
-
-        preparedStatement.close();
-
-        connection.close();
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
+        this.stm = connection.createStatement();
+        
+        String sql = "DELETE FROM Exame WHERE tipo = '"+tipo+"'";
+        
+        int linhasDelet = stm.executeUpdate(sql);        
 
         if (linhasDelet == 1) {
+            stm.close();
+            connection.close();
             return true;
         } else {
+            stm.close();
+            connection.close();
             return false;
         }
     }

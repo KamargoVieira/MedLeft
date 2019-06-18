@@ -48,7 +48,7 @@ public class AlterarMedico extends javax.swing.JFrame {
         password = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Alterar Medico");
         getContentPane().setLayout(null);
 
@@ -164,6 +164,7 @@ public class AlterarMedico extends javax.swing.JFrame {
             
             switch(op){
                 case "ok":
+                    this.dispose();
                     JOptionPane.showMessageDialog(null,"Medico alterado com sucesso!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
                     break;
                 case "userjaexiste":
