@@ -213,7 +213,7 @@ public class CadastrarPaciente extends javax.swing.JFrame {
         }else{
             try {
                 String str = "CadastrarPaciente@"+nome.getText()+"@"+cpf.getText()+"@"+ user.getText()+"@"+new String(password.getPassword())+ "@"+
-                    datanascimento.getText() + "@"+ endereco.getText() + "@" + bairro.getText()+"@"+municipio.getText()+ "@"+ estado.getSelectedItem() + "@" +
+                    datanascimento.getText() + "@"+ endereco.getText() + "@" + bairro.getText()+"@"+municipio.getText()+"@"+ cep.getText()+ "@"+ estado.getSelectedItem() + "@" +
                     telefone.getText()+"@"+ celular.getText();
                 conexao.enviar(str);
                 String op = conexao.receber();

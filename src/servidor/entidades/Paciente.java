@@ -21,7 +21,7 @@ public class Paciente extends Usuario {
     private String celular;
     private String cep;
 
-    public Paciente(String nome, String dataNasc,String endereco,String bairro,String municipio,String cep,String estado,String telefone,String celular,String usuario,String senha) {
+    public Paciente(String nome, String cpf, String usuario,String senha, String dataNasc, String endereco, String bairro, String municipio , String cep, String estado, String telefone,String celular) {
         setNome(nome);
         setCpf(cpf);
         setUsuario(usuario);

@@ -83,19 +83,20 @@ public class ConsultaDAO {
 
         this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
 
-        String sql = "SELECT * FROM Conulta WHERE horario = ? and data = ?;";
+        String sql = "SELECT * FROM Consulta WHERE horario = ? and data = ?;";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, horario);
         preparedStatement.setString(2, data);
 
         ResultSet result = preparedStatement.executeQuery();
 
-        preparedStatement.close();
-        connection.close();
-
-        if (result == null) {
+        if (result.next()) {
+            preparedStatement.close();
+            connection.close();
             return false;
         } else {
+            preparedStatement.close();
+            connection.close();
             return true;
         }
     }
@@ -170,32 +171,32 @@ public class ConsultaDAO {
     }
 
     public String getConsultasDoDia(String data) throws SQLException {
-        
+
         this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
-        
+
         String sql = "SELECT * FROM Consulta WHERE data = ?";
-        
+
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, data);
-        
+
         ResultSet result = preparedStatement.executeQuery();
 
         preparedStatement.close();
 
         connection.close();
-        
-        if(result == null){
+
+        if (result == null) {
             return null;
         } else {
-            
+
             String r = "";
-            
+
             while (result.next()) {
-                r = r + result.getInt("id")+"@"+result.getString("cpf")+"@"+result.getString("telefone")+"@"+result.getString("horario")+"@"+result.getString("data")+"@"+result.getString("antendimento")+"%";
+                r = r + result.getInt("id") + "@" + result.getString("cpf") + "@" + result.getString("telefone") + "@" + result.getString("horario") + "@" + result.getString("data") + "@" + result.getString("antendimento") + "%";
             }
-            
+
             return r;
         }
-   
+
     }
 }

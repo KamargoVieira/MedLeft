@@ -55,7 +55,8 @@ public class BuscarPaciente extends javax.swing.JFrame {
         celular = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Buscar Paciente");
         getContentPane().setLayout(null);
 
         enderecoj.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
@@ -184,7 +185,7 @@ public class BuscarPaciente extends javax.swing.JFrame {
 
         nome.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         getContentPane().add(nome);
-        nome.setBounds(130, 220, 290, 0);
+        nome.setBounds(130, 220, 290, 30);
 
         datanascimento.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         getContentPane().add(datanascimento);
@@ -192,33 +193,33 @@ public class BuscarPaciente extends javax.swing.JFrame {
 
         endereco.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         getContentPane().add(endereco);
-        endereco.setBounds(150, 280, 270, 0);
+        endereco.setBounds(150, 280, 270, 30);
 
         bairro.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         getContentPane().add(bairro);
-        bairro.setBounds(150, 340, 170, 0);
+        bairro.setBounds(150, 340, 170, 30);
 
         cep.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         getContentPane().add(cep);
-        cep.setBounds(160, 400, 180, 0);
+        cep.setBounds(160, 400, 180, 30);
 
         telefone.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         getContentPane().add(telefone);
-        telefone.setBounds(160, 460, 150, 0);
+        telefone.setBounds(160, 460, 150, 30);
 
         cpf.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         getContentPane().add(cpf);
-        cpf.setBounds(150, 530, 210, 0);
+        cpf.setBounds(150, 530, 210, 30);
 
         municipio.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         getContentPane().add(municipio);
-        municipio.setBounds(580, 340, 230, 0);
+        municipio.setBounds(580, 340, 230, 20);
         getContentPane().add(estado);
         estado.setBounds(550, 400, 220, 30);
 
         celular.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         getContentPane().add(celular);
-        celular.setBounds(560, 450, 170, 0);
+        celular.setBounds(560, 450, 170, 30);
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cliente/GUI/imagens/fundo.png"))); // NOI18N
