@@ -115,6 +115,9 @@ public class Servidor extends Thread {
                     case "CadastrarPaciente":
                         cadastrarPaciente(funcao);
                         break;
+                    case "AlterarPaciente":
+                        alterarPaciente(funcao);
+                        break;
                     case "AgendarConsulta":
                         agendarConsulta(funcao);
                         break;
@@ -288,7 +291,7 @@ public class Servidor extends Thread {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void adicionaExame(String[] funcao) {
         Exame e = new Exame(funcao[1], Double.parseDouble(funcao[2]));
         try{
@@ -302,6 +305,7 @@ public class Servidor extends Thread {
         }
     }
 
+    //Criar o metodo removerExame na ExameDAO retornando true caso tenha sido removido ou falso caso nao tenha sido encontrada
     private void removerExame(String[] funcao) {
         try{
             if(ed.removeExame(funcao[1])){
@@ -429,7 +433,7 @@ public class Servidor extends Thread {
     private void cadastrarPaciente(String[] funcao) {
         try {
             //Altera construtor de paciente para a ordem: nome, datanascimento, endereco, bairro, municipio, cep, estado, telefone, celular, cpf, user, senha
-            Paciente p = new Paciente(funcao[1], funcao[2], funcao[3], funcao[4], funcao[5], funcao[6], funcao[7], funcao[8], funcao[9], funcao[10], funcao[11], funcao[12]);
+            Paciente p = new Paciente(funcao[1], funcao[2], funcao[3], funcao[4], funcao[5], funcao[6], funcao[7], funcao[8], funcao[9], funcao[10], funcao[11]);
             if(pd.adcPaciente(p)){                
                 conexao.enviar("ok");                
             }else{
@@ -542,5 +546,18 @@ public class Servidor extends Thread {
         } catch (IOException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         } 
+    }
+
+    private void alterarPaciente(String[] funcao) throws SQLException {
+        try{
+            Paciente p = new Paciente(funcao[1], funcao[2], funcao[3], funcao[4], funcao[5], funcao[6], funcao[7], funcao[8], funcao[9], funcao[10], funcao[11]);
+            if(pd.atualizaPaciente(p)){
+                conexao.enviar("ok");
+            }else{
+                conexao.enviar("jaexiste");
+            }
+        }catch(IOException ex){
+            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

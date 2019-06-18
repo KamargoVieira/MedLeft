@@ -212,9 +212,9 @@ public class CadastrarPaciente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Preencha todos os campos.", "Info" ,JOptionPane.INFORMATION_MESSAGE);
         }else{
             try {
-                String str = "CadastrarPaciente@"+nome.getText()+"@"+datanascimento.getText()+"@"+ endereco.getText()+"@"+bairro.getText()+ "@"+
-                    municipio.getText() + "@"+ cep.getText() + "@" + estado.getSelectedItem()+ "@" + telefone.getText()+ "@"+
-                    celular.getText()+"@"+cpf.getText()+"@"+user.getText()+"@"+ new String(password.getPassword());
+                String str = "CadastrarPaciente@"+nome.getText()+"@"+cpf.getText()+"@"+ user.getText()+"@"+new String(password.getPassword())+ "@"+
+                    datanascimento.getText() + "@"+ endereco.getText() + "@" + bairro.getText()+"@"+municipio.getText()+ "@"+ estado.getSelectedItem() + "@" +
+                    telefone.getText()+"@"+ celular.getText();
                 conexao.enviar(str);
                 String op = conexao.receber();
                 switch(op){
@@ -222,8 +222,9 @@ public class CadastrarPaciente extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null,"Paciente cadastrado com sucesso!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
                         break;
                     case "jaexiste":
-                        JOptionPane.showMessageDialog(null,"Nome de usuário já existe. Tente outro.", "Info" ,JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null,"Nome de usuário ou CPF já cadastrados. Tente outro.", "Info" ,JOptionPane.INFORMATION_MESSAGE);
                         user.setText("");
+                        cpf.setText("");
                         break;
                 }
             } catch (IOException ex) {

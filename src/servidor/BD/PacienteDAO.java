@@ -1,6 +1,7 @@
 package servidor.BD;
 
 import java.sql.*;
+import servidor.entidades.Medico;
 import servidor.entidades.Paciente;
 
 public class PacienteDAO {
@@ -10,22 +11,42 @@ public class PacienteDAO {
 
     public boolean adcPaciente(Paciente p) throws SQLException {
         
-        if (validaLogin(p.getUsuario(), p.getSenha())) {
+        if (adcPacienteAux(p.getUsuario(), p.getCpf()) || adcPacienteAux2(p.getCpf())) {
             return false;
         } else {
         
             this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
             this.stm = connection.createStatement();
             
-            String sql = "INSERT INTO Paciente (Nome, CPF, Usuario, Senha, data_de_nascimento,Endereco, Bairro, Municipio, Estado, Telefone, Celular)"
+            String sql = "INSERT INTO Paciente (Nome, CPF, Usuario, Senha, data_de_nascimento,Endereco, Bairro, Municipio, Cep, Estado, Telefone, Celular)"
                     + "VALUES('"+p.getNome()+"','"+p.getCpf()+"','"+p.getUsuario()+"','"+p.getSenha()+"','"+p.getDataNasc()+"','"
-                    +p.getEndereco()+"','"+p.getBairro()+"','"+p.getMunicipio()+"','"+p.getEstado()+"','"+p.getTelefone()+"','"+p.getCelular()+"')";
+                    +p.getEndereco()+"','"+p.getBairro()+"','"+p.getMunicipio()+"','"+p.getCep()+"','"+p.getEstado()+"','"+p.getTelefone()+"','"+p.getCelular()+"')";
            
             stm.executeUpdate(sql);            
             stm.close();
             connection.close();
             return true;
         }
+    }
+    
+    public boolean adcPacienteAux(String usuario, String cpf) throws SQLException{
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
+        this. stm = connection.createStatement();      
+      
+        String sql = "SELECT * FROM Paciente WHERE usuario = '"+usuario+ "' or cpf = '" + cpf+"'";      
+        
+        ResultSet rs = stm.executeQuery(sql);
+        
+        while(rs.next()){
+            if(rs.getString("usuario").equals(usuario) && !rs.getString("cpf").equals(cpf)){
+                stm.close();
+                connection.close();
+                return true;
+            }
+        }
+        stm.close();
+        connection.close();
+        return false;
     }
 
     public Paciente getPaciente(String cpf) throws SQLException {
@@ -40,7 +61,7 @@ public class PacienteDAO {
         ResultSet result = preparedStatement.executeQuery();
 
         Paciente p;
-        p = new Paciente(result.getString("Nome"), result.getString("CPF"), result.getString("Usuario"), result.getString("Senha"), result.getString("Identificacao"), result.getString("data_de_nascimento"), result.getString("Endereço"), result.getString("Bairro"), result.getString("Municipio"), result.getString("Estado"), result.getString("Telefone"), result.getString("Celular"));
+        p = new Paciente(result.getString("Nome"), result.getString("CPF"), result.getString("Usuario"), result.getString("Senha"), result.getString("data_de_nascimento"), result.getString("Endereco"), result.getString("Bairro"), result.getString("Municipio"), result.getString("Estado"), result.getString("Telefone"), result.getString("Celular"));
 
         preparedStatement.close();
         connection.close();
@@ -51,19 +72,22 @@ public class PacienteDAO {
     public String getP(String cpf) throws SQLException{
         
         this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
-
-        String sql = "SELECT * FROM Paciente WHERE cpf = ?";
-
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, cpf);
-
-        ResultSet result = preparedStatement.executeQuery();
+        this.stm = connection.createStatement();
         
-        preparedStatement.close();
+        String sql = "SELECT * FROM Paciente WHERE cpf = '"+cpf+"'";
+        ResultSet result = stm.executeQuery(sql);
+        
+        while(result.next()){
+            if(result.getString("cpf").equals(cpf)){
+                String str = result.getString("Nome")+"@"+result.getString("CPF")+"@"+result.getString("Usuario")+"@"+result.getString("Senha")+"@"+result.getString("data_de_nascimento")+"@"+result.getString("Endereco")+"@"+result.getString("Bairro")+"@"+result.getString("Municipio")+"@"+result.getString("Cep")+"@"+result.getString("Estado")+"@"+result.getString("Telefone")+"@"+result.getString("Celular");
+                stm.close();
+                connection.close();
+                return str;
+            }
+        }
+        stm.close();
         connection.close();
-
-        return result.getString("Nome")+"@"+result.getString("CPF")+"@"+result.getString("Usuario")+"@"+result.getString("Senha")+"@"+result.getString("Identificacao")+"@"+result.getString("data_de_nascimento")+"@"+result.getString("Endereço")+"@"+result.getString("Bairro")+"@"+result.getString("Municipio")+"@"+result.getString("Estado")+"@"+result.getString("Telefone")+"@"+result.getString("Celular");
-
+        return null;
     }
 
     public boolean validaLogin(String usuario, String senha) throws SQLException {
@@ -76,6 +100,26 @@ public class PacienteDAO {
         ResultSet rs = stm.executeQuery(sql);
         while(rs.next()){
             if(rs.getString("usuario").equals(usuario) && rs.getString("senha").equals(senha)){
+                stm.close();
+                connection.close();
+                return true;
+            }
+        }
+        stm.close();
+        connection.close();
+        return false;
+    }
+    
+    private boolean adcPacienteAux2(String cpf) throws SQLException {
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
+        this. stm = connection.createStatement();      
+      
+        String sql = "SELECT * FROM Paciente WHERE cpf = '"+cpf+"'";      
+        
+        ResultSet rs = stm.executeQuery(sql);
+        
+        while(rs.next()){
+            if(rs.getString("cpf").equals(cpf)){
                 stm.close();
                 connection.close();
                 return true;

@@ -19,22 +19,23 @@ public class Paciente extends Usuario {
     private String estado;
     private String telefone;
     private String celular;
+    private String cep;
 
-    public Paciente(String nome, String cpf, String usuario, String senha, String identificacao, String dataNasc, String endereco, String bairro, String municipio, String estado, String telefone, String celular) {
+    public Paciente(String nome, String dataNasc,String endereco,String bairro,String municipio,String cep,String estado,String telefone,String celular,String usuario,String senha) {
         setNome(nome);
         setCpf(cpf);
         setUsuario(usuario);
         setSenha(senha);
-        setIdentificacao(identificacao);
         setDataNasc(dataNasc);
         setEndereco(endereco);
         setBairro(bairro);
         setMunicipio(municipio);
+        setCep(cep);
         setEstado(estado);
         setTelefone(telefone);
         setCelular(celular);
         
-    }
+    }    
 
     /**
      * @return the identificacao
@@ -146,6 +147,20 @@ public class Paciente extends Usuario {
      */
     public void setCelular(String celular) {
         this.celular = celular;
+    }
+
+    /**
+     * @return the cep
+     */
+    public String getCep() {
+        return cep;
+    }
+
+    /**
+     * @param cep the cep to set
+     */
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 
 }
