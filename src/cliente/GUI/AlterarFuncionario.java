@@ -44,7 +44,7 @@ public class AlterarFuncionario extends javax.swing.JFrame {
         password = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Alterar Funcionário");
         getContentPane().setLayout(null);
 
@@ -145,7 +145,7 @@ public class AlterarFuncionario extends javax.swing.JFrame {
                 case "ok":
                     JOptionPane.showMessageDialog(null,"Funcionario alterado com sucesso!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
                     break;
-                case "userjaexiste":
+                case "jaexiste":
                     JOptionPane.showMessageDialog(null,"Nome de usuario informado já existe. Tente outro!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
                     user.setText("");
                     break;

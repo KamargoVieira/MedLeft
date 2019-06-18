@@ -18,7 +18,7 @@ public class ExameMarcadoDAO {
 
     public boolean adcExameMarcado(ExameMarcado eM) throws SQLException {
 
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
 
         if (validaExameMarcado(eM.getData(), eM.getHorario())) {
             return false;
@@ -52,7 +52,7 @@ public class ExameMarcadoDAO {
 
     public boolean validaExameMarcado(String data, String horario) throws SQLException {
 
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
 
         String sql = "SELECT * FROM ExameMarcado WHERE horario = ? and data = ?;";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -74,7 +74,7 @@ public class ExameMarcadoDAO {
 
     public ExameMarcado getExameMarcado(Integer id) throws SQLException {
 
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
 
         String sql = "SELECT * FROM ExameMarcado WHERE id = ?";
 
@@ -94,7 +94,7 @@ public class ExameMarcadoDAO {
 
     public String getEM(Integer id) throws SQLException {
 
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
 
         String sql = "SELECT * FROM ExameMarcado WHERE id = ?";
 
@@ -114,7 +114,7 @@ public class ExameMarcadoDAO {
         if (buscaExame(id)) {
             return false;
         } else {
-            this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+            this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
 
             String sqlInsert = "UPDATE ExameMarcado SET "
                     + "status = ?,"
@@ -135,7 +135,7 @@ public class ExameMarcadoDAO {
 
     public boolean buscaExame(Integer id) throws SQLException {
         
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
             
         String sql = "SELECT * FROM ExameMarcado WHERE id = ?;";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -155,7 +155,7 @@ public class ExameMarcadoDAO {
     }
     
     private boolean buscaExameID(Integer id) throws SQLException{
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
             
         String sql = "SELECT * FROM ExameMarcado WHERE id = ?;";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);

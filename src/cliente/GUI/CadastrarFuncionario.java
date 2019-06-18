@@ -29,7 +29,8 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
         password = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Cadastrar Funcionário");
         getContentPane().setLayout(null);
 
         nome.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
@@ -91,7 +92,7 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_nomeActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -104,6 +105,7 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
                 String op = conexao.receber();
                 switch(op){
                     case "ok":
+                        this.dispose();
                         JOptionPane.showMessageDialog(null,"Funcionário cadastrado com sucesso!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
                         break;
                     case "jaexiste":

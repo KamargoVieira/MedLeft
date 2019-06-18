@@ -23,7 +23,7 @@ public class RemoverMedico extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Remover Médico");
         getContentPane().setLayout(null);
 
@@ -63,6 +63,7 @@ public class RemoverMedico extends javax.swing.JFrame {
                 String op = conexao.receber();
                 switch(op){
                     case "ok":
+                        this.dispose();
                         JOptionPane.showMessageDialog(null,"Medico Removido com Sucesso!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
                         break;
                     case "naoencontrado":

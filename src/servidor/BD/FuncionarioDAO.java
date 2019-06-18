@@ -6,34 +6,21 @@ import servidor.entidades.Funcionario;
 public class FuncionarioDAO {
 
     Connection connection;
+    Statement  stm;
 
     public boolean adcFuncionario(Funcionario f) throws SQLException {
 
-        if (validaLogin(f.getUsuario(), f.getSenha())) {
+        if (validaLogin(f.getUsuario())) {
             return false;
         } else {
 
-            this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
-
-            String sqlInsert = "INSERT INTO Funcionario ("
-                    + "nome,"
-                    + "cpf,"
-                    + "usuario,"
-                    + "senha"
-                    + ") VALUES(?,?,?,?);";
-
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlInsert);
-            preparedStatement.setString(1, f.getNome());
-            preparedStatement.setString(2, f.getCpf());
-            preparedStatement.setString(3, f.getUsuario());
-            preparedStatement.setString(4, f.getSenha());
-
-            preparedStatement.executeUpdate();
-
-            preparedStatement.close();
-
-            connection.close();
+            this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
+            this.stm = connection.createStatement();           
             
+            String sql = "INSERT INTO Funcionario (nome,cpf,usuario,senha) VALUES('"+f.getNome()+"','"+f.getCpf()+"','"+f.getUsuario()+"','"+f.getSenha()+"')";
+            stm.executeUpdate(sql);            
+            stm.close();
+            connection.close();
             return true;
         }
 
@@ -41,7 +28,7 @@ public class FuncionarioDAO {
 
     public Funcionario getFuncionario(String cpf) throws SQLException {
 
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
 
         String sql = "SELECT * FROM Funcionario WHERE cpf = ?";
 
@@ -61,116 +48,125 @@ public class FuncionarioDAO {
 
     public String getF(String cpf) throws SQLException {
 
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
+        this.stm = connection.createStatement();
+        
+        String sql = "SELECT * FROM Funcionario WHERE cpf = '"+cpf+"'";
+        ResultSet result = stm.executeQuery(sql);
 
-        String sql = "SELECT * FROM Funcionario WHERE cpf = ?";
-
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, cpf);
-
-        ResultSet result = preparedStatement.executeQuery();
-
-        preparedStatement.close();
+        while(result.next()){
+            if(result.getString("cpf").equals(cpf)){
+                String str = result.getString("nome") + "@" + result.getString("cpf") + "@" + result.getString("usuario") + "@" + result.getString("senha");
+                stm.close();
+                connection.close();
+                return str;
+            }
+        }
+        stm.close();
         connection.close();
-
-        return result.getString("nome") + "@" + result.getString("cpf") + "@" + result.getString("usuario") + "@" + result.getString("senha");
+        return  null;
     }
 
     public boolean validaLogin(String usuario, String senha) throws SQLException {
 
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
-
-        String sql = "SELECT * FROM Funcionario WHERE usuario = ?";
-
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, usuario);
-
-        ResultSet result = preparedStatement.executeQuery();
-
-        preparedStatement.close();
-
-        connection.close();
-
-        if (result == null) {
-            return false;
-        } else if (result.getString("usuario").equals(usuario) && result.getString("senha").equals(senha)) {
-            return true;
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
+        this. stm = connection.createStatement();      
+      
+        String sql = "SELECT * FROM Funcionario WHERE usuario = '"+usuario+ "' and senha ='" + senha+"'";        
+        
+        ResultSet rs = stm.executeQuery(sql);
+        while(rs.next()){
+            if(rs.getString("usuario").equals(usuario) && rs.getString("senha").equals(senha)){
+                stm.close();
+                connection.close();
+                return true;
+            }
         }
+        stm.close();
+        connection.close();
         return false;
     }
-    
-     public boolean validaLogin(String usuario) throws SQLException {
 
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+    public boolean validaLogin(String usuario) throws SQLException {
 
-        String sql = "SELECT * FROM Funcionario WHERE usuario = ?";
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
+        this.stm = connection.createStatement();
+        
+        String sql = "SELECT * FROM Funcionario WHERE usuario = '"+usuario+"'";       
 
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, usuario);
-
-        ResultSet result = preparedStatement.executeQuery();
-
-        preparedStatement.close();
-
-        connection.close();
-
-        if (result == null) {
-            return false;
-        } else if (result.getString("usuario").equals(usuario)) {
-            return true;
+        ResultSet result = stm.executeQuery(sql);
+        ResultSet rs = stm.executeQuery(sql);
+        while(rs.next()){
+            if(rs.getString("usuario").equals(usuario)){
+                stm.close();
+                connection.close();
+                return true;
+            }
         }
+        stm.close();
+        connection.close();
         return false;
     }
 
     public boolean removeFuncionario(String cpf) throws SQLException {
-        
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
 
-        String sql = "DELETE FROM Funcionario WHERE cpf = ?;";
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
+        this.stm = connection.createStatement();
 
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, cpf);
-
-        int linhasDelet = preparedStatement.executeUpdate();
-
-        preparedStatement.close();
-
-        connection.close();
+        String sql = "DELETE FROM Funcionario WHERE cpf = '"+cpf+"'";
+        int linhasDelet = stm.executeUpdate(sql);        
 
         if (linhasDelet == 1) {
+            stm.close();
+            connection.close();
             return true;
         } else {
+            stm.close();
+            connection.close();
             return false;
         }
     }
 
     public boolean atualizaFuncionario(Funcionario f) throws SQLException {
-        
-        if (validaLogin(f.getUsuario())) {
+
+        if (alterarFuncionarioAux(f.getUsuario(),f.getCpf())) {
             return false;
         } else {
-            
-            this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
 
-            String sqlInsert = "UPDATE Funcionario SET "
-                    + "nome = ?,"
-                    + "usuario = ?,"
-                    + "senha = ?"
-                    + " WHERE cpf = ?;";
+            this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
+            this.stm = connection.createStatement();
 
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlInsert);
-            preparedStatement.setString(1, f.getNome());
-            preparedStatement.setString(2, f.getUsuario());
-            preparedStatement.setString(3, f.getSenha());
-            preparedStatement.setString(4, f.getCpf());
-
-            preparedStatement.executeUpdate();
-
-            preparedStatement.close();
-
-            connection.close();
-
-            return true;
+            String sql = "UPDATE Funcionario SET nome = '"+ f.getNome()+"', usuario = '"+f.getUsuario()+"', senha = '"+f.getSenha()+"' WHERE cpf = '"+f.getCpf()+"'";
+            int linhasatualizadas = stm.executeUpdate(sql);
+            if (linhasatualizadas == 1) {
+                stm.close();
+                connection.close();
+                return true;
+            } else {
+                stm.close();
+                connection.close();
+                return false;
+            }          
         }
+    }
+
+    private boolean alterarFuncionarioAux(String usuario, String cpf) throws SQLException {
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
+        this.stm = connection.createStatement();
+        
+        String sql = "SELECT * FROM Funcionario WHERE usuario = '"+usuario+"'";       
+
+        ResultSet result = stm.executeQuery(sql);
+        ResultSet rs = stm.executeQuery(sql);
+        while(rs.next()){
+            if(rs.getString("usuario").equals(usuario) && !(rs.getString("cpf").equals(cpf))){
+                stm.close();
+                connection.close();
+                return true;
+            }
+        }
+        stm.close();
+        connection.close();
+        return false;
     }
 }

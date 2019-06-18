@@ -197,7 +197,7 @@ public class CadastrarPaciente extends javax.swing.JFrame {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 1220, 760);
 
-        setSize(new java.awt.Dimension(1227, 790));
+        setSize(new java.awt.Dimension(1213, 790));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

@@ -55,8 +55,8 @@ public class Servidor extends Thread {
                 op = conexao.receber();
                 funcao = op.split("@");
                 switch(funcao[0]){
-                    case "TelaLogin":
-                        telalogin(funcao);
+                    case "TelaLogin":                       
+                        telalogin(funcao);                        
                         break;
                     case "CadastrarMedico":
                         cadastraMedico(funcao);
@@ -140,7 +140,7 @@ public class Servidor extends Thread {
                         imprimirExame(funcao);
                         break;
                 }
-            } catch (IOException | SQLException ex) {
+            } catch (IOException | SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }        
@@ -148,18 +148,18 @@ public class Servidor extends Thread {
 
     private void telalogin(String[] funcao) throws IOException, SQLException {
        
-        // Adicionar metodos no DAO para validar o login. Recebe usuario e senha e retorna true ou false.
         String tipoUsuario = funcao[3];
         switch(tipoUsuario){
-            case "mestre":    
-                FuncionarioDAO m = new FuncionarioDAO();
-                if(m.validaLogin(funcao[1], funcao[2])){                    
+            case "Mestre":                   
+                if(fd.validaLogin(funcao[1], funcao[2])){    
+                  
                     conexao.enviar("mestre");
                 }else{
                     conexao.enviar("erro");
                 }
+               
                 break;
-            case "funcionario":
+            case "Funcionario":
                 FuncionarioDAO f = new FuncionarioDAO();
                 if(f.validaLogin(funcao[1], funcao[2])){                    
                     conexao.enviar("funcionario");
@@ -167,14 +167,14 @@ public class Servidor extends Thread {
                     conexao.enviar("erro");
                 }
                 break;
-            case "medico":
+            case "Medico":
                 if(md.validaLogin(funcao[1], funcao[2])){                    
                     conexao.enviar("medico");
                 }else{
                     conexao.enviar("erro");
                 }
                 break;
-            case "paciente":
+            case "Paciente":
                 PacienteDAO p = new PacienteDAO();
                 if(p.validaLogin(funcao[1], funcao[2])){                    
                     conexao.enviar("paciente");
@@ -185,8 +185,8 @@ public class Servidor extends Thread {
         }
     }
 
-    //Alterar a AdcMedico para retornar true se conseguir cadastrar ou false caso encontre um usuario que já existe e não realize o cadastro.
-    private void cadastraMedico(String[] funcao){
+  
+    private void cadastraMedico(String[] funcao) throws ClassNotFoundException{
         try {
             Medico medico = new Medico(funcao[1], funcao[2], funcao[3], funcao[4], funcao[5]);            
             if(md.adcMedico(medico)){
@@ -199,7 +199,6 @@ public class Servidor extends Thread {
         }
     }
 
-    // Criar a remove no MedicoDAO. Ela recebe o cpf do Medico a ser removido.
     private void removerMedico(String[] funcao) {
         try{
             if(md.removeMedico(funcao[1])){            
@@ -211,8 +210,7 @@ public class Servidor extends Thread {
                 Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    // Alterar a getM para retornar nulo caso não encontre o cpf enviado
+  
     private void buscarMedico(String[] funcao) {       
         try {            
             String dados = md.getM(funcao[1]);
@@ -225,14 +223,12 @@ public class Servidor extends Thread {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }   
-
-    // Criar o metodo update para atualizar medico. Recebe tipo medico com os novos dados. Retorna true se atualizar ou false caso o user já exista
+    }       
     private void alteraMedico(String[] funcao) {
         Medico medico = new Medico(funcao[1], funcao[2], funcao[3], funcao[4], funcao[5]); 
         try {
             if(md.atualizaMedico(medico)){            
-                    conexao.enviar("ok");            
+                conexao.enviar("ok");            
             }else{
                 conexao.enviar("userjaexiste");
             }
@@ -240,8 +236,7 @@ public class Servidor extends Thread {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    //Alterar a AdcFuncionario para retornar true se conseguir cadastrar ou false caso encontre um usuario que já existe e não realize o cadastro.
+    
     private void cadastrarFuncionario(String[] funcao) {
         Funcionario f = new Funcionario(funcao[1], funcao[2], funcao[3], funcao[4]);
         try{
@@ -253,9 +248,8 @@ public class Servidor extends Thread {
         }catch(IOException | SQLException ex){
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    // Criar a remove no FuncionarioDAO. Ela recebe o cpf do Medico a ser removido.
+    }    
+
     private void removerFuncionario(String[] funcao) {
        try{
             if(fd.removeFuncionario(funcao[1])){            
@@ -268,7 +262,7 @@ public class Servidor extends Thread {
         }  
     }
     
-    // Alterar a getF para retornar nulo caso não encontre o cpf enviado
+    
     private void buscarFuncionario(String[] funcao) {
         try {            
             String dados = fd.getF(funcao[1]);
@@ -281,7 +275,7 @@ public class Servidor extends Thread {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    // Criar o metodo update para atualizar funcionario. Recebe tipo funcionario com os novos dados. Retorna true se atualizar ou false caso o user já exista
+    
     private void alterarFuncionario(String[] funcao) {
         Funcionario f = new Funcionario(funcao[1], funcao[2], funcao[3], funcao[4]);
         try{
@@ -294,9 +288,7 @@ public class Servidor extends Thread {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    //Alterar a adicionaExame na ExameDAO para retornar true se cadastrou ou falso caso já existe exame com nome registrado
-    //Alterar também pra receber só o nome(tipo) no BD
+    
     private void adicionaExame(String[] funcao) {
         Exame e = new Exame(funcao[1], Double.parseDouble(funcao[2]));
         try{
@@ -310,7 +302,6 @@ public class Servidor extends Thread {
         }
     }
 
-    //Criar o metodo removerExame na ExameDAO retornando true caso tenha sido removido ou falso caso nao tenha sido encontrada
     private void removerExame(String[] funcao) {
         try{
             if(ed.removeExame(funcao[1])){

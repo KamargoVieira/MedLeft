@@ -12,7 +12,7 @@ public class ConsultaDAO {
         if (buscaConsulta(c.getData(), c.getHorario())) {
             return false;
         } else {
-            this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+            this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
 
             String sqlInsert = "INSERT INTO Consulta ("
                     + "cpf,"
@@ -43,7 +43,7 @@ public class ConsultaDAO {
 
     public Consulta getConsulta(Integer id) throws SQLException {
 
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
 
         String sql = "SELECT * FROM Consulta WHERE id = ?";
 
@@ -63,7 +63,7 @@ public class ConsultaDAO {
 
     public String getC(Integer id) throws SQLException {
 
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
 
         String sql = "SELECT * FROM Consulta WHERE id = ?";
 
@@ -81,7 +81,7 @@ public class ConsultaDAO {
 
     public boolean buscaConsulta(String data, String horario) throws SQLException {
 
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
 
         String sql = "SELECT * FROM Conulta WHERE horario = ? and data = ?;";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -104,7 +104,7 @@ public class ConsultaDAO {
         if (buscaConsultaID(id)) {
             return false;
         } else {
-            this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+            this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
 
             String sqlInsert = "UPDATE Consulta SET "
                     + "status = ?,"
@@ -125,7 +125,7 @@ public class ConsultaDAO {
 
     private boolean buscaConsultaID(Integer id) throws SQLException {
 
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
 
         String sql = "SELECT * FROM Consulta WHERE id = ?;";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -147,7 +147,7 @@ public class ConsultaDAO {
     public boolean alteraAtendimento(Integer id) throws SQLException {
 
         if (buscaConsultaID(id)) {
-            this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+            this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
 
             String sqlInsert = "UPDATE Consulta SET "
                     + "atendimento = ?,"
@@ -171,7 +171,7 @@ public class ConsultaDAO {
 
     public String getConsultasDoDia(String data) throws SQLException {
         
-        this.connection = DriverManager.getConnection("jdbc:sqlite:basededados.db");
+        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
         
         String sql = "SELECT * FROM Consulta WHERE data = ?";
         

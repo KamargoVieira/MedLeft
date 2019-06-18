@@ -40,7 +40,7 @@ public class CadastrarMedico extends javax.swing.JFrame {
             }
         });
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar Medico");
         getContentPane().setLayout(null);
 
@@ -128,7 +128,7 @@ public class CadastrarMedico extends javax.swing.JFrame {
                 conexao.enviar(str);
                 String op = conexao.receber();
                 switch(op){
-                    case "ok":
+                    case "ok":                        
                         JOptionPane.showMessageDialog(null,"Médico cadastrado com sucesso!", "Info" ,JOptionPane.INFORMATION_MESSAGE);
                         break;
                     case "jaexiste":

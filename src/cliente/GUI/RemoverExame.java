@@ -23,7 +23,8 @@ public class RemoverExame extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Remover Exame");
         getContentPane().setLayout(null);
 
         jLabel7.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
