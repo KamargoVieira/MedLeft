@@ -149,7 +149,7 @@ public class Servidor extends Thread {
         }        
     }
 
-    private void telalogin(String[] funcao) throws IOException, SQLException {
+    private synchronized void telalogin(String[] funcao) throws IOException, SQLException {
        
         String tipoUsuario = funcao[3];
         switch(tipoUsuario){
@@ -189,7 +189,7 @@ public class Servidor extends Thread {
     }
 
   
-    private void cadastraMedico(String[] funcao) throws ClassNotFoundException{
+    private synchronized void cadastraMedico(String[] funcao) throws ClassNotFoundException{
         try {
             Medico medico = new Medico(funcao[1], funcao[2], funcao[3], funcao[4], funcao[5]);            
             if(md.adcMedico(medico)){
@@ -202,7 +202,7 @@ public class Servidor extends Thread {
         }
     }
 
-    private void removerMedico(String[] funcao) {
+    private synchronized void removerMedico(String[] funcao) {
         try{
             if(md.removeMedico(funcao[1])){            
                 conexao.enviar("ok");            
@@ -214,7 +214,7 @@ public class Servidor extends Thread {
         }
     }
   
-    private void buscarMedico(String[] funcao) {       
+    private synchronized void buscarMedico(String[] funcao) {       
         try {            
             String dados = md.getM(funcao[1]);
             if(dados != null){
@@ -227,7 +227,7 @@ public class Servidor extends Thread {
         }
         
     }       
-    private void alteraMedico(String[] funcao) {
+    private synchronized void alteraMedico(String[] funcao) {
         Medico medico = new Medico(funcao[1], funcao[2], funcao[3], funcao[4], funcao[5]); 
         try {
             if(md.atualizaMedico(medico)){            
@@ -240,7 +240,7 @@ public class Servidor extends Thread {
         }
     }
     
-    private void cadastrarFuncionario(String[] funcao) {
+    private synchronized void cadastrarFuncionario(String[] funcao) {
         Funcionario f = new Funcionario(funcao[1], funcao[2], funcao[3], funcao[4]);
         try{
             if(fd.adcFuncionario(f)){
@@ -253,7 +253,7 @@ public class Servidor extends Thread {
         }
     }    
 
-    private void removerFuncionario(String[] funcao) {
+    private synchronized void removerFuncionario(String[] funcao) {
        try{
             if(fd.removeFuncionario(funcao[1])){            
                 conexao.enviar("ok");            
@@ -266,7 +266,7 @@ public class Servidor extends Thread {
     }
     
     
-    private void buscarFuncionario(String[] funcao) {
+    private synchronized void buscarFuncionario(String[] funcao) {
         try {            
             String dados = fd.getF(funcao[1]);
             if(dados != null){
@@ -279,7 +279,7 @@ public class Servidor extends Thread {
         }
     }
     
-    private void alterarFuncionario(String[] funcao) {
+    private synchronized void alterarFuncionario(String[] funcao) {
         Funcionario f = new Funcionario(funcao[1], funcao[2], funcao[3], funcao[4]);
         try{
             if(fd.atualizaFuncionario(f)){
@@ -292,7 +292,7 @@ public class Servidor extends Thread {
         }
     }
 
-    private void adicionaExame(String[] funcao) {
+    private synchronized void adicionaExame(String[] funcao) {
         Exame e = new Exame(funcao[1], Double.parseDouble(funcao[2]));
         try{
             if(ed.adcExame(e)){
@@ -306,7 +306,7 @@ public class Servidor extends Thread {
     }
 
     //Criar o metodo removerExame na ExameDAO retornando true caso tenha sido removido ou falso caso nao tenha sido encontrada
-    private void removerExame(String[] funcao) {
+    private synchronized void removerExame(String[] funcao) {
         try{
             if(ed.removeExame(funcao[1])){
                 conexao.enviar("ok");
@@ -320,7 +320,7 @@ public class Servidor extends Thread {
 
     //Alterar a getp no PacienteDAO para retornar null caso nao tenha encontradoo
     //Retirar dar DAO tambem o campo Identificacao (Nao tem mais, tira do BD tbm) e adicionar depois do municipio o campo cep
-    private void buscarPaciente(String[] funcao) {
+    private synchronized void buscarPaciente(String[] funcao) {
         try {
             String dados = pd.getP(funcao[1]);
             if(dados != null){
@@ -333,7 +333,7 @@ public class Servidor extends Thread {
         }
     }
 
-    private void buscarProntuario(String[] funcao) {
+    private synchronized void buscarProntuario(String[] funcao) {
         try{
             String dados = pdd.getProntuario(funcao[1]);
             if(dados != null){
@@ -349,7 +349,7 @@ public class Servidor extends Thread {
     }
     
     //Metodo igual ao de cima, mas deve procurar pelo nome de usuario
-    private void buscarProntuarioPaciente(String[] funcao) {
+    private synchronized void buscarProntuarioPaciente(String[] funcao) {
         try{
             String dados = pdd.getP(funcao[1]);
             if(dados != null){
@@ -368,7 +368,7 @@ public class Servidor extends Thread {
     //obs, altura, peso, hemogucloteste, temperatura, frequenciacardiaca, pressaosistotica, pressaodiastolica, obs2, cpf do Paciente.
     //Criar tambem a ProntuarioDAO.
     //Nao vai ter metodo pra adicionar entao tu vai fazer uma condição. Se ja existe um prontuario cadastrado no cpf do Paciente tu atualiza, se não, adiciona.
-    private void alterarProntuario(String[] funcao) throws SQLException, IOException {
+    private synchronized void alterarProntuario(String[] funcao) throws SQLException, IOException {
         Prontuario p = new Prontuario(funcao[1], funcao[2], funcao[3], funcao[4], funcao[5],funcao[6], funcao[7], funcao[8], funcao[9], funcao[10], funcao[11],funcao[12]);
         pdd.atualizaProntuario(p);
         conexao.enviar("ok");
@@ -376,7 +376,7 @@ public class Servidor extends Thread {
     }
 
     // OK
-    private void imprimirReceita(String[] funcao) {
+    private synchronized void imprimirReceita(String[] funcao) {
         try {
             String dados = pd.getP(funcao[1]);
             Receita r = new Receita(funcao[1], funcao[2]);
@@ -391,7 +391,7 @@ public class Servidor extends Thread {
     }
     
    //OK 
-    private void imprimirAtestado(String[] funcao) {
+    private synchronized void imprimirAtestado(String[] funcao) {
         try {
             String dados = pd.getP(funcao[1]);
             Atestado a = new Atestado(funcao[1],funcao[2],funcao[3],funcao[4]);
@@ -408,7 +408,7 @@ public class Servidor extends Thread {
     // Fazer um metodo para retornar toda a tabela de consultas de acordo com o dia. Recebe a data e retorna todos os registros encontrados naquela data
     //Padrao de retorno "DADO1@DADO2@DADO3@DADO4%DADO1@DADO2@DADO3@DADO4
     //Separar cada linha por % e cada dado por @
-    private void consultasDoDia(String[] funcao) {
+    private synchronized void consultasDoDia(String[] funcao) {
         try {
             String tabela = cd.getConsultasDoDia(funcao[1]);
             conexao.enviar(tabela);
@@ -420,7 +420,7 @@ public class Servidor extends Thread {
     }
 
     //Altera o campo "Atendido" da consulta para "ok". Recebe o id da consulta. Retorna true se encontrou e alterou
-    private void consultaAtendida(String[] funcao) throws SQLException, IOException {
+    private synchronized void consultaAtendida(String[] funcao) throws SQLException, IOException {
         if(cd.alteraAtendimento(Integer.parseInt(funcao[1]))){
             conexao.enviar("ok");
         }else{
@@ -430,7 +430,7 @@ public class Servidor extends Thread {
 
     //Alterar a cadastrar Paciente pra retornar true ou falso caso ja exista.
     //Retirar campo de identificação e adicionar CEP depois do municipio no DAO e Paciente
-    private void cadastrarPaciente(String[] funcao) {
+    private synchronized void cadastrarPaciente(String[] funcao) {
         try {
             //Altera construtor de paciente para a ordem: nome, datanascimento, endereco, bairro, municipio, cep, estado, telefone, celular, cpf, user, senha
             Paciente p = new Paciente(funcao[1], funcao[2], funcao[3], funcao[4], funcao[5], funcao[6], funcao[7], funcao[8], funcao[9], funcao[10], funcao[11], funcao[12]);
@@ -446,7 +446,7 @@ public class Servidor extends Thread {
     
     //Tira o campo id do construtor de consulta e coloca nessa ordem: especialista, cpf, telefone, data, horario, obs, status
     // Retorna true se cadastrar e retorna false caso ja tenha um registro cadastrado na mesma data e hora.
-    private void agendarConsulta(String[] funcao) throws SQLException {
+    private synchronized void agendarConsulta(String[] funcao) throws SQLException {
         Consulta c = new Consulta(funcao[1], funcao[2], funcao[3], funcao[4], funcao[5], funcao[6], funcao[7]);
         try{
             if(cd.adcConsulta(c)){
@@ -462,7 +462,7 @@ public class Servidor extends Thread {
     //Altera a getC na DAO pra receber string(cpf) e retorna todas os registros encontrados daquele CPF
     //Padrao de retorno "DADO1@DADO2@DADO3@DADO4%DADO1@DADO2@DADO3@DADO4
     //Separar cada linha por % e cada dado por @
-    private void buscarConsulta(String[] funcao) {
+    private  synchronized void buscarConsulta(String[] funcao) {
         try{
             String dados = cd.getC(Integer.parseInt(funcao[1]));
             if(dados != null){
@@ -478,7 +478,7 @@ public class Servidor extends Thread {
     }
 
     //Criar metodo na DAO que altera o campo status para "ok" de acordo com o id da consulta que ela recebe.    
-    private void confirmarConsulta(String[] funcao) throws SQLException {
+    private synchronized void confirmarConsulta(String[] funcao) throws SQLException {
         try{
             if(cd.confirmaConsulta(Integer.parseInt(funcao[1]))){
                 conexao.enviar("ok");
@@ -492,7 +492,7 @@ public class Servidor extends Thread {
 
     //Retirar o campo id do construtor no ExameMarcado.
     //Retorna true se foi agendado com sucesso e retorna falso se ja tiver algum exame marcado para aquela data-horario.
-    private void agendarExame(String[] funcao) throws SQLException, IOException {
+    private synchronized void agendarExame(String[] funcao) throws SQLException, IOException {
         ExameMarcado e = new ExameMarcado(funcao[1], funcao[2], funcao[3], funcao[4], funcao[5], funcao[6]);
         if(edd.adcExameMarcado(e)){
             conexao.enviar("ok");
@@ -504,7 +504,7 @@ public class Servidor extends Thread {
     //Altera a funcao getExameMarcado para retornar todos os registros de acordo com o cpf que esta sendo enviado.
      //Padrao de retorno "DADO1@DADO2@DADO3@DADO4%DADO1@DADO2@DADO3@DADO4
     //Separar cada linha por % e cada dado por @
-    private void buscarExameMarcado(String[] funcao) throws SQLException {
+    private synchronized void buscarExameMarcado(String[] funcao) throws SQLException {
         try{
             String dados;
             dados = edd.getEM(Integer.parseInt(funcao[1]));
@@ -516,7 +516,7 @@ public class Servidor extends Thread {
     }
 
     //Alterar o campo de status para "confirmado" do exame de acordo com o id que é enviado
-    private void confirmarExame(String[] funcao) throws IOException, SQLException {
+    private synchronized void confirmarExame(String[] funcao) throws IOException, SQLException {
         if(edd.confirmaExame(Integer.parseInt(funcao[1]))){
             conexao.enviar("ok");
         }else{
@@ -526,7 +526,7 @@ public class Servidor extends Thread {
     //Retornar todos os Exames de acordo com o cpf que é enviado
     //Padrao de retorno "DADO1@DADO2@DADO3@DADO4%DADO1@DADO2@DADO3@DADO4
     //Separar cada linha por % e cada dado por @
-    private void buscaExamesImprimir(String[] funcao) throws SQLException {
+    private synchronized void buscaExamesImprimir(String[] funcao) throws SQLException {
         try{
             String dados = edd.getEM(Integer.parseInt(funcao[1]));
             conexao.enviar(dados);
@@ -536,7 +536,7 @@ public class Servidor extends Thread {
     }
 
     //Retorna exame de acordo com id que é enviado.
-    private void imprimirExame(String[] funcao) throws SQLException {
+    private synchronized void imprimirExame(String[] funcao) throws SQLException {
         try {            
             if(edd.buscaExame(Integer.parseInt(funcao[1]))){
                 conexao.enviar("ok");
@@ -548,7 +548,7 @@ public class Servidor extends Thread {
         } 
     }
 
-    private void alterarPaciente(String[] funcao) throws SQLException {
+    private synchronized void alterarPaciente(String[] funcao) throws SQLException {
         try{
             Paciente p = new Paciente(funcao[1], funcao[2], funcao[3], funcao[4], funcao[5], funcao[6], funcao[7], funcao[8], funcao[9], funcao[10], funcao[11], funcao[12]);
             if(pd.atualizaPaciente(p)){

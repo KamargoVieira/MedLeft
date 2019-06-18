@@ -1,6 +1,9 @@
 package cliente.GUI;
 
 import cliente.Conexao;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class TelaPaciente extends javax.swing.JFrame {
 
@@ -119,7 +122,11 @@ public class TelaPaciente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        new AgendarConsulta(conexao, "paciente").setVisible(true);
+        try {
+            new AgendarConsulta(conexao, "paciente").setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(TelaPaciente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
