@@ -290,8 +290,7 @@ public class AlterarPaciente extends javax.swing.JFrame {
             if(!(password.getPassword().length < 1))
                 this.senhaAux = new String(password.getPassword());
             
-            String str = "AlterarPaciente@"+this.nomeAux+"@"+datanascimento.getText()+"@"+this.enderecoAux+"@"+this.bairroAux+"@"+this.municipioAux+"@"+
-                    this.cepAux+"@"+this.estadoAux+"@"+this.telefoneAux+"@"+this.celularAux+"@"+this.userAux+"@"+this.senhaAux;
+            String str = "AlterarPaciente@"+nomeAux+"@"+cpf.getText()+"@"+ userAux+"@"+new String(password.getPassword())+"@"+datanascimento.getText() + "@"+ enderecoAux + "@" + bairroAux+"@"+municipioAux+"@"+cepAux+"@"+estadoAux+"@"+telefoneAux+"@"+celularAux;
             conexao.enviar(str);
             String op =conexao.receber();
             switch(op){

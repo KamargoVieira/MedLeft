@@ -11,7 +11,7 @@ public class AgendarConsulta extends javax.swing.JFrame {
     Conexao conexao;
     String tipoUsuario;
     String status;
-    public AgendarConsulta(Conexao conexao, String tipoUsuario) {
+    public AgendarConsulta(Conexao conexao, String tipoUsuario) throws IOException {
         initComponents();
         this.conexao = conexao;
         this.tipoUsuario = tipoUsuario;
@@ -48,7 +48,7 @@ public class AgendarConsulta extends javax.swing.JFrame {
         jLabel2.setBounds(60, 90, 110, 21);
 
         especialista.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        especialista.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--" }));
+        especialista.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--", "Clinico" }));
         getContentPane().add(especialista);
         especialista.setBounds(190, 80, 400, 50);
 

@@ -119,7 +119,6 @@ public class MedicoDAO {
 
         String sql = "SELECT * FROM Medico WHERE usuario = '" + usuario + "'";
 
-        ResultSet result = stm.executeQuery(sql);
         ResultSet rs = stm.executeQuery(sql);
         while (rs.next()) {
             if (rs.getString("usuario").equals(usuario) && !(rs.getString("cpf").equals(cpf))) {
@@ -154,7 +153,7 @@ public class MedicoDAO {
 
     public boolean atualizaMedico(Medico m) throws SQLException {
 
-        if (alterarMedicoAux(m.getUsuario(), m.getSenha())) {
+        if (alterarMedicoAux(m.getUsuario(), m.getCpf())) {
             return false;
         } else {
             Connection connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");

@@ -3,7 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/kamargo/MedLeft/src/servidor/MainServidor.java</file>
+            <file>file:/home/kamargo/MedLeft/src/servidor/Servidor.java</file>
+            <file>file:/home/kamargo/MedLeft/src/servidor/BD/ProntuarioDAO.java</file>
+            <file>file:/home/kamargo/MedLeft/src/servidor/BD/PacienteDAO.java</file>
+            <file>file:/home/kamargo/MedLeft/src/servidor/entidades/Prontuario.java</file>
             <file>file:/home/kamargo/MedLeft/src/servidor/BD/MedicoDAO.java</file>
         </group>
     </open-files>

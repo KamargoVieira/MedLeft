@@ -9,76 +9,36 @@ public class PacienteDAO {
     Statement stm;
 
     public boolean adcPaciente(Paciente p) throws SQLException {
-        
-        if (adcPacienteAux(p.getUsuario(), p.getCpf()) || adcPacienteAux2(p.getCpf())) {
+
+        if (validaLogin(p.getUsuario()) || validaCpf(p.getCpf())) {
             return false;
         } else {
-        
+
             this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
             this.stm = connection.createStatement();
-            
+
             String sql = "INSERT INTO Paciente (Nome, CPF, Usuario, Senha, data_de_nascimento,Endereco, Bairro, Municipio, Cep, Estado, Telefone, Celular)"
-                    + "VALUES('"+p.getNome()+"','"+p.getCpf()+"','"+p.getUsuario()+"','"+p.getSenha()+"','"+p.getDataNasc()+"','"
-                    +p.getEndereco()+"','"+p.getBairro()+"','"+p.getMunicipio()+"','"+p.getCep()+"','"+p.getEstado()+"','"+p.getTelefone()+"','"+p.getCelular()+"')";
-           
-            stm.executeUpdate(sql);            
+                    + "VALUES('" + p.getNome() + "','" + p.getCpf() + "','" + p.getUsuario() + "','" + p.getSenha() + "','" + p.getDataNasc() + "','"
+                    + p.getEndereco() + "','" + p.getBairro() + "','" + p.getMunicipio() + "','" + p.getCep() + "','" + p.getEstado() + "','" + p.getTelefone() + "','" + p.getCelular() + "');";
+
+            stm.executeUpdate(sql);
             stm.close();
             connection.close();
             return true;
         }
     }
-    
-    public boolean adcPacienteAux(String usuario, String cpf) throws SQLException{
-        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
-        this. stm = connection.createStatement();      
-      
-        String sql = "SELECT * FROM Paciente WHERE usuario = '"+usuario+ "' or cpf = '" + cpf+"'";      
-        
-        ResultSet rs = stm.executeQuery(sql);
-        
-        while(rs.next()){
-            if(rs.getString("usuario").equals(usuario) && !rs.getString("cpf").equals(cpf)){
-                stm.close();
-                connection.close();
-                return true;
-            }
-        }
-        stm.close();
-        connection.close();
-        return false;
-    }
 
-    public Paciente getPaciente(String cpf) throws SQLException {
-        
-        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
+    public String getP(String cpf) throws SQLException {
 
-        String sql = "SELECT * FROM Paciente WHERE cpf = ?";
-
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, cpf);
-
-        ResultSet result = preparedStatement.executeQuery();
-
-        Paciente p;
-        p = new Paciente(result.getString("Nome"), result.getString("CPF"), result.getString("Usuario"), result.getString("Senha"), result.getString("data_de_nascimento"), result.getString("Endereco"), result.getString("Bairro"), result.getString("Municipio"), result.getString("Estado"), result.getString("Telefone"), result.getString("Celular"));
-
-        preparedStatement.close();
-        connection.close();
-
-        return p;
-    }
-    
-    public String getP(String cpf) throws SQLException{
-        
         this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
         this.stm = connection.createStatement();
-        
-        String sql = "SELECT * FROM Paciente WHERE cpf = '"+cpf+"'";
+
+        String sql = "SELECT * FROM Paciente WHERE cpf = '" + cpf + "'";
         ResultSet result = stm.executeQuery(sql);
-        
-        while(result.next()){
-            if(result.getString("cpf").equals(cpf)){
-                String str = result.getString("Nome")+"@"+result.getString("CPF")+"@"+result.getString("Usuario")+"@"+result.getString("Senha")+"@"+result.getString("data_de_nascimento")+"@"+result.getString("Endereco")+"@"+result.getString("Bairro")+"@"+result.getString("Municipio")+"@"+result.getString("Cep")+"@"+result.getString("Estado")+"@"+result.getString("Telefone")+"@"+result.getString("Celular");
+
+        while (result.next()) {
+            if (result.getString("cpf").equals(cpf)) {
+                String str = result.getString("Nome") + "@" + result.getString("CPF") + "@" + result.getString("Usuario") + "@" + result.getString("Senha") + "@" + result.getString("data_de_nascimento") + "@" + result.getString("Endereco") + "@" + result.getString("Bairro") + "@" + result.getString("Municipio") + "@" + result.getString("Cep") + "@" + result.getString("Estado") + "@" + result.getString("Telefone") + "@" + result.getString("Celular");
                 stm.close();
                 connection.close();
                 return str;
@@ -90,35 +50,15 @@ public class PacienteDAO {
     }
 
     public boolean validaLogin(String usuario, String senha) throws SQLException {
-        
+
         this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
-        this. stm = connection.createStatement();      
-      
-        String sql = "SELECT * FROM Paciente WHERE usuario = '"+usuario+ "' and senha ='" + senha+"'";        
-        
+        this.stm = connection.createStatement();
+
+        String sql = "SELECT * FROM Paciente WHERE usuario = '" + usuario + "' and senha ='" + senha + "'";
+
         ResultSet rs = stm.executeQuery(sql);
-        while(rs.next()){
-            if(rs.getString("usuario").equals(usuario) && rs.getString("senha").equals(senha)){
-                stm.close();
-                connection.close();
-                return true;
-            }
-        }
-        stm.close();
-        connection.close();
-        return false;
-    }
-    
-    private boolean adcPacienteAux2(String cpf) throws SQLException {
-        this.connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
-        this. stm = connection.createStatement();      
-      
-        String sql = "SELECT * FROM Paciente WHERE cpf = '"+cpf+"'";      
-        
-        ResultSet rs = stm.executeQuery(sql);
-        
-        while(rs.next()){
-            if(rs.getString("cpf").equals(cpf)){
+        while (rs.next()) {
+            if (rs.getString("usuario").equals(usuario) && rs.getString("senha").equals(senha)) {
                 stm.close();
                 connection.close();
                 return true;
@@ -129,7 +69,82 @@ public class PacienteDAO {
         return false;
     }
 
-    public boolean atualizaPaciente(Paciente p) {
-        return true;
+    public boolean validaLogin(String usuario) throws SQLException {
+
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
+        Statement stm = connection.createStatement();
+
+        String sql = "SELECT * FROM Paciente WHERE usuario = '" + usuario + "'";
+
+        ResultSet result = stm.executeQuery(sql);
+        ResultSet rs = stm.executeQuery(sql);
+        while (rs.next()) {
+            if (rs.getString("usuario").equals(usuario)) {
+                stm.close();
+                connection.close();
+                return true;
+            }
+        }
+        stm.close();
+        connection.close();
+        return false;
+    }
+
+    public boolean validaCpf(String cpf) throws SQLException {
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
+        Statement stm = connection.createStatement();
+
+        String sql = "SELECT * FROM Paciente WHERE cpf = '" + cpf + "'";
+
+        ResultSet result = stm.executeQuery(sql);
+        ResultSet rs = stm.executeQuery(sql);
+        while (rs.next()) {
+            if (rs.getString("cpf").equals(cpf)) {
+                stm.close();
+                connection.close();
+                return true;
+            }
+        }
+        stm.close();
+        connection.close();
+        return false;
+    }
+
+    public boolean alterarPacienteAux(String usuario, String cpf) throws SQLException {
+
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
+        Statement stm = connection.createStatement();
+
+        String sql = "SELECT * FROM Paciente WHERE usuario = '" + usuario + "'";
+
+        ResultSet result = stm.executeQuery(sql);
+        ResultSet rs = stm.executeQuery(sql);
+        while (rs.next()) {
+            if (rs.getString("usuario").equals(usuario) && !(rs.getString("cpf").equals(cpf))) {
+                stm.close();
+                connection.close();
+                return true;
+            }
+        }
+        stm.close();
+        connection.close();
+        return false;
+    }
+
+    public boolean atualizaPaciente(Paciente p) throws SQLException {
+        if (alterarPacienteAux(p.getUsuario(), p.getCpf())) {
+            return false;
+        } else {
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:src/servidor/BD/basededados.db");
+            Statement stm = connection.createStatement();
+
+            String sql = "UPDATE Paciente SET nome = '" + p.getNome() + "', data_de_nascimento = '" + p.getDataNasc() + "', Endereco = '" + p.getEndereco() + "', Bairro = '" + p.getBairro() + "', Municipio = '" + p.getMunicipio() + "', Estado = '" + p.getEstado() + "', Telefone = '" + p.getTelefone() + "', Celular = '" + p.getCelular() + "', Usuario = '" + p.getUsuario() + "', Senha = '" + p.getSenha() + "',Cep = '" + p.getCep() + "' WHERE cpf = '" + p.getCpf() + "'";
+            int linhasatualizadas = stm.executeUpdate(sql);
+
+            stm.close();
+            connection.close();
+            return true;
+
+        }
     }
 }
