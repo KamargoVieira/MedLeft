@@ -38,7 +38,7 @@ public class AgendarConsulta extends javax.swing.JFrame {
         telefone = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agendar Consulta");
         getContentPane().setLayout(null);
 

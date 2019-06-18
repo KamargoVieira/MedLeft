@@ -29,7 +29,7 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
         password = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar Funcionário");
         getContentPane().setLayout(null);
 
