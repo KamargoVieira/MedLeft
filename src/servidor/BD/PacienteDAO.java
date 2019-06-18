@@ -1,7 +1,6 @@
 package servidor.BD;
 
 import java.sql.*;
-import servidor.entidades.Medico;
 import servidor.entidades.Paciente;
 
 public class PacienteDAO {
@@ -128,5 +127,9 @@ public class PacienteDAO {
         stm.close();
         connection.close();
         return false;
+    }
+
+    public boolean atualizaPaciente(Paciente p) {
+        return true;
     }
 }
